@@ -3,8 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MY Financials – Mitra Keuangan UMKM Papua</title>
-  <meta name="description" content="MY Financials – mitra keuangan terpercaya untuk UMKM Papua. Pelatihan, konsultasi, dan set-up pembukuan usaha." />
+  <title>MY Financials – Mitra Keuangan UMKM Papua | Pembukuan, Konsultasi &amp; Pelatihan</title>
+  <meta name="description" content="MY Financials adalah mitra keuangan terpercaya untuk UMKM di Papua — pelatihan literasi keuangan, konsultasi &amp; pendampingan, serta set-up pembukuan usaha yang praktis dan mudah dipahami." />
+  <meta name="keywords" content="MY Financials, keuangan UMKM, pembukuan UMKM, konsultasi keuangan, pelatihan keuangan, literasi keuangan, perencanaan keuangan, akuntansi UMKM, Papua, Jayapura, Sentani" />
+  <meta name="author" content="MY Financials" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#B84A1A" />
+
+  <!-- Canonical & social URL — TODO: ganti https://www.example.com dengan domain produksi Anda -->
+  <link rel="canonical" href="https://www.example.com/" />
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MY Financials" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:title" content="MY Financials – Mitra Keuangan UMKM Papua" />
+  <meta property="og:description" content="Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan, konsultasi, dan set-up pembukuan usaha yang praktis dan mudah dipahami." />
+  <meta property="og:url" content="https://www.example.com/" />
+  <meta property="og:image" content="img/1.jpg" />
+  <meta property="og:image:alt" content="Pelatihan &amp; pendampingan keuangan MY Financials bersama UMKM Papua" />
+  <meta property="og:image:width" content="1720" />
+  <meta property="og:image:height" content="1080" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MY Financials – Mitra Keuangan UMKM Papua" />
+  <meta name="twitter:description" content="Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan, konsultasi, dan set-up pembukuan usaha." />
+  <meta name="twitter:image" content="img/1.jpg" />
+  <meta name="twitter:image:alt" content="Pelatihan &amp; pendampingan keuangan MY Financials bersama UMKM Papua" />
+
+  <!-- Structured data (Schema.org JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "MY Financials",
+    "description": "Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha.",
+    "image": "img/1.jpg",
+    "logo": "img/logo-my-financials.png",
+    "email": "msy.financials@outlook.com",
+    "telephone": "+62-821-9090-2163",
+    "url": "https://www.example.com/",
+    "areaServed": "Papua, Indonesia",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sentani",
+      "addressRegion": "Kabupaten Jayapura, Papua",
+      "addressCountry": "ID"
+    },
+    "sameAs": [
+      "https://instagram.com/my.financials"
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "Meitilda Yaung, B.Acc., CFP®",
+      "jobTitle": "Founder - Accountant, Financial Planner"
+    }
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./img/logo-my-financials.png" />
@@ -70,6 +126,7 @@
       .nav-link.active { @apply text-rust bg-rust/10; }
       .nav-cta { @apply items-center gap-2 px-[18px] py-2.5 rounded-lg bg-rust text-white font-bold text-[.82rem] uppercase tracking-[.04em] no-underline transition-colors; }
       .nav-cta:hover { @apply bg-rust-dark; }
+      .nav-title { @apply font-serif text-[1.2rem] navmenu:text-[1.4rem] font-semibold text-ink leading-none whitespace-nowrap; }
       .hamburger { @apply flex-col gap-[5px] p-2.5 -mr-2 bg-transparent border-0 cursor-pointer; }
       .hamburger span { @apply block w-6 h-0.5 rounded-sm bg-ink transition-all duration-300; }
       .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -77,8 +134,9 @@
       .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .mobile-menu { @apply hidden fixed top-16 left-0 right-0 z-[99] flex-col gap-1 bg-cream border-b border-line px-6 pt-4 pb-6 overflow-y-auto; max-height: calc(100vh - 64px); }
       .mobile-menu.open { @apply flex; }
-      .mobile-link { @apply px-3 py-3 rounded-lg text-[.95rem] font-semibold text-ink no-underline transition-colors; }
+      .mobile-link { @apply px-3 py-3 rounded-lg text-[.95rem] font-semibold text-ink no-underline text-center transition-colors; }
       .mobile-link:hover, .mobile-link.active { @apply bg-stone text-rust; }
+      .mobile-link + .mobile-link::before { content: "\2022"; @apply block text-center text-rust-light text-[.85rem] leading-none -mt-1 mb-1; }
       .mobile-cta { @apply flex items-center justify-center gap-2 mt-2 px-3 py-3 rounded-lg bg-rust text-white font-bold uppercase tracking-[.04em] no-underline transition-colors; }
       .mobile-cta:hover { @apply bg-rust-dark; }
 
@@ -236,7 +294,8 @@
 <nav id="navbar" class="fixed top-0 inset-x-0 z-[100] bg-cream/90 backdrop-blur-md border-b border-line transition-shadow">
   <div class="max-w-[1200px] mx-auto flex items-center justify-between h-16 px-6 max-[480px]:px-4">
     <a href="#hero" class="flex items-center gap-2.5 no-underline shrink-0" aria-label="MY Financials — Beranda">
-      <img src="./img/logo-my-financials.png" alt="MY Financials" class="h-20 w-auto translate-y-2.5 relative z-[2] max-[480px]:h-[62px] max-[480px]:translate-y-2" />
+      <img src="./img/logo-my-financials.png" alt="MY Financials" class="h-20 w-auto py-2 translate-y-2.5 relative z-[2] max-[480px]:h-[62px] max-[480px]:py-1 max-[480px]:translate-y-2" />
+      <span class="nav-title">MY Financials</span>
     </a>
     <ul class="nav-links hidden navmenu:flex gap-1 list-none">
       <li><a href="#siapa" class="nav-link">Siapa Kami</a></li>
@@ -521,6 +580,110 @@
   </div>
 </section>
 
+
+<!-- ── CTA KONSULTASI KEUANGAN MYF ── -->
+<section id="cta-consultation" class="section bg-rust relative overflow-hidden text-white">
+  <div class="section-inner relative z-[1]">
+    <span class="section-label text-white/80">Layanan Eksklusif</span>
+    <h2 class="section-title text-white">Booking Konsultasi Keuangan MY Financials (MYF)</h2>
+    <div class="section-divider bg-white/50"></div>
+    
+    <div class="max-w-3xl mx-auto text-center mb-10">
+      <p class="text-lg opacity-95 leading-relaxed">
+        Konsultasi Keuangan 1 on 1 dengan <strong>Perencana Keuangan Bersertifikat (CFP)</strong> untuk tata kelola keuangan pribadi yang prima dan akselerasi bisnis UKM Anda.
+      </p>
+    </div>
+
+    <!-- Grid Paket Layanan -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Paket 1 -->
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+        <div class="flex items-start gap-4">
+          <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">01</div>
+          <div>
+            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">Paket Dasar</h4>
+            <p class="text-white text-lg font-medium mt-1">“Cek kesehatan keuangan”</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paket 2 -->
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+        <div class="flex items-start gap-4">
+          <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">02</div>
+          <div>
+            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">Paket Menengah</h4>
+            <p class="text-white text-lg font-medium mt-1">“Rencana Finansial Pribadi”</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paket 3 -->
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+        <div class="flex items-start gap-4">
+          <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">03</div>
+          <div>
+            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">Paket Bisnis</h4>
+            <p class="text-white text-lg font-medium mt-1">“Keuangan UMKM”</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paket 4 -->
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+        <div class="flex items-start gap-4">
+          <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">04</div>
+          <div>
+            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">Paket Bisnis</h4>
+            <p class="text-white text-lg font-medium mt-1">“Review Keuangan Bisnis”</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paket 5 -->
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+        <div class="flex items-start gap-4">
+          <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">05</div>
+          <div>
+            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">Paket Bisnis</h4>
+            <p class="text-white text-lg font-medium mt-1">“Set-up Pembukuan Keuangan” <span class="text-xs block opacity-75 mt-1">(Project-based)</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paket 6 / Free (Sekarang menggunakan style Glassmorphism Putih Tebal) -->
+      <div class="bg-white/20 backdrop-blur-md p-6 rounded-xl border border-white/40 shadow-xl transform lg:scale-105 transition duration-300 flex flex-col justify-between">
+        <div class="flex items-start gap-4">
+          <div class="bg-white text-rust font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">06</div>
+          <div>
+            <h4 class="text-white font-bold text-sm uppercase tracking-wider opacity-90">Sesi Khusus</h4>
+            <p class="text-white text-lg font-extrabold mt-1">Konsultasi Gratis 30 Menit</p>
+            <p class="text-white text-sm opacity-90 mt-1">Untuk menentukan paket yang paling sesuai dengan kebutuhan Anda.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opsi Lainnya & Tombol Aksi -->
+    <div class="text-center">
+      <p class="text-sm opacity-90 mb-6 text-white">
+        <i class="fa-solid fa-circle-info mr-1"></i> Memiliki kebutuhan finansial spesifik lainnya? Pilih opsi **"Lainnya"** pada formulir pendaftaran.
+      </p>
+      
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBVTpLfSbtPz_JQ5-NMGupvjhsshRGCw7ymtanK9JfTURXTA/viewform" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="inline-flex items-center gap-3 bg-white text-rust font-bold px-8 py-4 rounded-full shadow-lg hover:bg-opacity-95 hover:scale-105 active:scale-95 transition-all duration-200 group">
+        <i class="fa-regular fa-calendar-check text-xl group-hover:rotate-12 transition-transform"></i>
+        <span>Pilih Paket & Amankan Jadwal</span>
+        <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- ── PORTFOLIO ── -->
 <section id="portfolio" class="section bg-cream">
   <div class="section-inner">
@@ -564,6 +727,47 @@
         <p>Kolaborasi dengan Telkom AI untuk capacity building, serta pelatihan literasi keuangan bagi pemuda gereja dan seminar PHLI dalam rangka peluncuran yayasan.</p>
         <span class="porto-badge"><i class="fa-solid fa-wifi"></i> Telkom AI</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERI ── -->
+<section id="galeri" class="section bg-white">
+  <div class="section-inner">
+    <span class="section-label">Galeri</span>
+    <h2 class="section-title">Dokumentasi Kegiatan</h2>
+    <div class="section-divider"></div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+      
+      <div class="gallery-item rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50 flex flex-col">
+        <img src="img/1.jpg" alt="Dokumentasi Kegiatan 1" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+        <div class="p-4 flex-grow flex items-center justify-center">
+          <p class="text-sm text-center text-gray-700 font-medium">MY Financials sukses membawakan materi pengelolaan cashflow dan pembiayaan sehat dalam acara UMKM Summit 2025 bersama Bank ANP KC Merauke pada Sabtu, 29 November 2025. </p>
+        </div>
+      </div>
+
+      <div class="gallery-item rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50 flex flex-col">
+        <img src="img/2.jpg" alt="Dokumentasi Kegiatan 2" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+        <div class="p-4 flex-grow flex items-center justify-center">
+          <p class="text-sm text-center text-gray-700 font-medium">Kolaborasi Telkom AI Connect dan My Financials sukses menyelenggarakan workshop mengenai pemanfaatan AI sebagai mitra berpikir strategis bagi UMKM di Telkom AI Center Kotaraja pada Sabtu, 21 Februari 2026. </p>
+        </div>
+      </div>
+
+      <div class="gallery-item rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50 flex flex-col">
+        <img src="img/6.jpg" alt="Dokumentasi Kegiatan 5" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+        <div class="p-4 flex-grow flex items-center justify-center">
+          <p class="text-sm text-center text-gray-700 font-medium">Dinas Koperasi dan UMKM Kabupaten Jayapura yang telah mempercayakan kami untuk memberikan materi pengelolaan keuangan bagi pelaku usaha mikro di wilayah pembangunan satu. </p>
+        </div>
+      </div>
+
+      <div class="gallery-item rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50 flex flex-col">
+        <img src="img/4.jpg" alt="Dokumentasi Kegiatan 4" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+        <div class="p-4 flex-grow flex items-center justify-center">
+          <p class="text-sm text-center text-gray-700 font-medium">Bersama KOPERNIK lakukan pelatihan manajemen keuangan bagi mama-mama di Kampung Sabeyap. Kegiatan ini difokuskan untuk mendukung pengembangan usaha pengelolaan produk turunan kakao yang mereka kelola.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
