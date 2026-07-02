@@ -1,97 +1,78 @@
-# MY Financials — Landing Page
+# MY Financials — Website & Dashboard
 
-Landing page profil & layanan **MY Financials**, mitra keuangan terpercaya untuk UMKM di Papua: pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha.
+Aplikasi web profil & layanan **MY Financials** — mitra keuangan terpercaya untuk UMKM di Papua: pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha.
 
-Website satu halaman (single page) yang responsif (mobile-first), dibangun dengan **HTML + Tailwind CSS + JavaScript murni** tanpa proses build (memakai Tailwind Play CDN).
+Dibangun dengan **Laravel 12** dan mengadopsi konsep desain dari template statis (`_template/index.html`): palet hangat **rust/ink/stone/cream**, tipografi **Lora + Plus Jakarta Sans**, dan seluruh section landing page (Hero, Siapa Kami, Tentang, Visi & Misi, Layanan, Layanan Eksklusif, Portofolio, Galeri, Blog, Tim, Kontak).
 
-## ✨ Fitur Utama
+## Fitur
 
-### Navigasi
-- Navbar sticky dengan efek bayangan saat halaman digulir.
-- Logo besar (dengan padding vertikal) yang sebagian menggantung di bawah garis navbar + judul teks "MY Financials".
-- **Scroll-spy**: menu otomatis menyorot section yang sedang dilihat.
-- Menu **mobile (hamburger)** dengan animasi ikon (jadi tanda X), item rata tengah, dan **separator titik (•)** antar menu.
-- Tombol CTA **Hubungi Kami** (ikon WhatsApp, uppercase) di desktop maupun mobile.
+### Publik (statis + dinamis)
+- **Beranda one-page** bergaya template MY Financials; section **Blog & Galeri dimuat dinamis via API + Alpine.js**.
+- **Form kontak → WhatsApp** dan tombol mengambang WhatsApp (seperti template).
+- **Blog & Artikel**: daftar, detail, multi-kategori, pencarian & filter, SEO (JSON-LD Article/BreadcrumbList).
+- **Galeri/Album**: daftar, detail dengan lightbox, filter, JSON-LD ImageGallery.
+- **Halaman statis**: FAQ, Kebijakan Privasi, Peta Situs, `sitemap.xml`, `robots.txt`.
 
-### Section Halaman (urut dari atas)
-- **Hero** — background slider 5 gambar dengan efek zoom (Ken Burns) + overlay gradient, judul, dan 4 kartu keunggulan.
-- **Siapa Kami** — ringkasan layanan + kartu, termasuk kartu *"Mitra yang Dapat Diandalkan"* dengan background foto + overlay warna tema.
-- **Tentang Kami** — timeline perjalanan + daftar nilai perusahaan.
-- **Visi & Misi** — kartu visi (dengan foto kegiatan) dan misi.
-- **Layanan** — 3 kartu layanan (1 kartu unggulan bertema gelap).
-- **Booking Konsultasi Keuangan (CTA)** — section bertema rust berisi paket konsultasi 1-on-1 bersama Perencana Keuangan Bersertifikat (CFP), termasuk sesi *Konsultasi Gratis 30 Menit*, dengan tombol pendaftaran ke **Google Form**.
-- **Portofolio** — 6 proyek/kegiatan terkini.
-- **Galeri** — *Dokumentasi Kegiatan*: grid foto kegiatan dengan keterangan + efek zoom saat hover.
-- **Tim** — section latar gelap, 2 anggota tim; foto tampil **grayscale** dan berubah **berwarna saat hover**.
-- **Kontak** — info kontak + form pesan.
+### Dinamis — dikelola penuh di dashboard (dengan database)
+- **Blog & Kategori**: CRUD dengan editor TinyMCE, multi-kategori, sampul, status, jadwal terbit, kolom SEO.
+- **Album & Galeri**: CRUD album + unggah/hapus banyak foto.
+- **Pengguna** (khusus admin) & **Profil**.
 
-### Interaksi
-- **Form "Kirim Pesan" → WhatsApp**: isian form (nama, email, kebutuhan, pesan) otomatis menjadi teks dan dibuka ke chat WhatsApp `+62 821 9090 2163`.
-- **Booking konsultasi** — tombol *"Pilih Paket & Amankan Jadwal"* di section Booking Konsultasi mengarah ke formulir **Google Form** (tab baru).
-- **Tombol mengambang (kanan bawah)**:
-  - *Hubungi & Konsultasi* — pill dengan foto Meitilda Yaung + badge WhatsApp (membuka chat WhatsApp).
-  - *Back to top* — muncul setelah menggulir > 400px, klik untuk kembali ke atas dengan animasi halus.
-- Judul & sub-judul setiap section dibuat rata tengah.
+### Simulasi — konsep desain (TANPA database & proses CRUD)
+Fitur berikut dibuat sebagai **konsep tampilan Blade** memakai data contoh in-memory (`app/Support/SampleData.php`). Tombol aksi bersifat visual.
+- **Sistem Member**: halaman daftar/masuk memakai **nomor HP + kata sandi** atau **akun Google**, lalu **verifikasi oleh admin** (dashboard). Peran: admin, operator.
+- **Paket Layanan** (Layanan Eksklusif): daftar & form konsep paket. Peran: admin, operator.
+- **Pemesanan paket** oleh member → **verifikasi** → **cetak Invoice PDF** (halaman invoice siap cetak via `window.print()` → Simpan sebagai PDF). Peran: admin, operator.
+- **Rekap di dashboard**, **Laporan Member**, dan **Laporan Keuangan** yang terintegrasi dengan invoice.
 
-### Lainnya
-- **SEO dioptimalkan**: meta description, keywords, Open Graph, Twitter Card, dan structured data JSON-LD (Schema.org `FinancialService`). Gambar share (og:image) memakai `img/1.jpg`.
-- **Favicon** + apple-touch-icon dari logo.
-- **Aksesibilitas**: `aria-label`, teks `alt`, dukungan `prefers-reduced-motion` (menonaktifkan animasi bila pengguna memintanya).
-- Footer dengan logo putih + kredit **Powered by Nokensoft**.
+## Teknologi
+- **Backend**: PHP 8.2, Laravel 12
+- **Database**: SQLite (mudah dipindah ke MySQL/PostgreSQL)
+- **Frontend**: Blade, Tailwind CSS 4 (`@tailwindcss/vite`), Alpine.js 3
+- **Build**: Vite 7 · **Editor**: TinyMCE 8 (self-hosted) · **Ikon/Font**: Font Awesome 6, Google Fonts (Lora, Plus Jakarta Sans)
+- **Auth**: session bawaan Laravel + middleware peran (`role:admin`)
 
-## 🛠️ Teknologi
-- **HTML5**
-- **Tailwind CSS** (Play CDN) — konfigurasi tema inline + komponen via `@layer components` (`@apply`).
-- **JavaScript** (vanilla, tanpa framework) — `js/script.js`.
-- **Font Awesome 6.5** (ikon).
-- **Google Fonts** — *Lora* (judul) & *Plus Jakarta Sans* (teks).
-
-## 📁 Struktur Proyek
-```
-212-my-financials/
-├── index.html            # Seluruh markup + konfigurasi & komponen Tailwind
-├── js/
-│   └── script.js         # Navbar, menu mobile, slider hero, scroll-spy, form→WA, back-to-top
-├── img/                  # Gambar & logo
-│   ├── 1.jpg ... 6.jpg               # Slide hero, galeri & aset kegiatan
-│   ├── logo-my-financials.png        # Logo (latar terang)
-│   ├── logo-my-financials-white.png  # Logo (latar gelap / footer)
-│   ├── logo-nokensoft.jpg            # Logo Nokensoft
-│   ├── Meitilda Yaung, B.Acc., CFP.png
-│   └── Hana Sesa, S.M.png
-└── README.md
-```
-
-## 🚀 Cara Menjalankan
-Cara tercepat — buka langsung `index.html` di browser.
-
-Disarankan menjalankan lewat server lokal (agar semua aset & font termuat optimal):
+## Instalasi
 ```bash
-# Python 3
-python -m http.server 8000
-# lalu buka http://localhost:8000
+composer install
+npm install                      # postinstall menyalin TinyMCE ke public/tinymce
+cp .env.example .env             # APP_NAME sudah "MY Financials"
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan storage:link
+npm run build
 ```
-Tailwind dimuat via CDN, jadi **butuh koneksi internet** saat membuka halaman.
 
-## 🎨 Kustomisasi
-- **Warna tema** — ubah di `tailwind.config` (dalam `index.html`): `rust`, `ink`, `stone`, `cream`, `muted`, `line`.
-- **Font** — ubah `fontFamily` di `tailwind.config` dan tautan Google Fonts.
-- **Nomor WhatsApp** — ubah `WA_NUMBER` di `js/script.js` serta tautan `wa.me/...` pada tombol mengambang (saat ini `6282190902163`).
-- **Link booking konsultasi** — ganti URL **Google Form** pada tombol di section Booking Konsultasi (`#cta-consultation`) di `index.html`.
-- **Konten** — edit langsung di `index.html`.
-- **Breakpoint menu** — menu mobile aktif di bawah `900px` (custom screen `navmenu` di `tailwind.config`).
+## Menjalankan (Development)
+```bash
+npm run dev          # Terminal 1 — Vite
+php artisan serve    # Terminal 2 — server aplikasi
+```
+Buka `http://127.0.0.1:8000`. Dashboard: `/dashboard` · Login admin: `/login` · Area member (simulasi): `/member/masuk`.
 
-## 🔍 Catatan SEO & Deploy
-- Ganti placeholder `https://www.example.com` dengan **domain produksi** Anda pada: `<link rel="canonical">`, `og:url`, dan `url` di JSON-LD.
-- Untuk pratinjau share (WhatsApp/Facebook/Twitter), gunakan **URL absolut** pada `og:image` / `twitter:image` (mis. `https://domain-anda/img/1.jpg`).
-- Opsional saat deploy: tambahkan `sitemap.xml` dan `robots.txt`.
-- Untuk produksi, pertimbangkan membangun Tailwind via CLI (CSS lebih kecil & menghilangkan peringatan "cdn.tailwindcss.com should not be used in production").
+## Akun Default
+Dibuat oleh seeder — **segera ganti kata sandi setelah login pertama**.
+- **Admin** — email: `admin@myfinancials.id` · kata sandi: `password`
+- **Operator** — email: `operator@myfinancials.id` · kata sandi: `password`
 
-## 📞 Kontak
-- **Telepon / WhatsApp**: +62 821 9090 2163
-- **Email**: msy.financials@outlook.com
-- **Instagram**: [@my.financials](https://instagram.com/my.financials)
-- **Alamat**: Sentani, Kab. Jayapura — Papua, Indonesia
+## Peta Rute Utama
+- Publik: `/`, `/blog`, `/blog/{slug}`, `/galeri`, `/galeri/{slug}`, `/faq`, `/kebijakan-privasi`, `/peta-situs`, `/sitemap.xml`, `/robots.txt`
+- Member (simulasi): `/member/masuk`, `/member/daftar`
+- API (JSON): `/api/posts`, `/api/categories`, `/api/albums`
+- Dashboard (perlu login): `/dashboard`, `/dashboard/posts`, `/dashboard/categories`, `/dashboard/albums`, `/dashboard/users` (admin)
+- Dashboard simulasi: `/dashboard/members`, `/dashboard/packages`, `/dashboard/orders`, `/dashboard/orders/{id}/invoice`, `/dashboard/reports/members`, `/dashboard/reports/finance`
 
----
-© 2025 MY Financials — Mitra Keuangan UMKM Papua. Powered by **Nokensoft**.
+## Kustomisasi Tema
+- **Warna & font**: `resources/css/app.css` (`@theme`) — skala `primary` (rust), warna `rust`/`ink`/`stone`/`cream`/`muted`/`line`, serta `--font-serif` (Lora).
+- **Interaksi publik** (slider hero, scroll-spy, menu mobile, form→WA, back-to-top): `resources/js/app.js`.
+- **Nomor WhatsApp**: ubah `WA_NUMBER` di `resources/js/app.js` dan tautan `wa.me/...` di `resources/views/home.blade.php`.
+- **Data contoh simulasi**: `app/Support/SampleData.php`.
+
+## Catatan
+- `_template/` disimpan sebagai **referensi desain** (landing page statis asli).
+- Fitur simulasi belum menyimpan data. Untuk mengaktifkannya, tambahkan migrasi, model, dan proses CRUD yang sesungguhnya.
+
+## Author
+- **Nokensoft.com** — PIC: 082199558191 (Janzen)
+
+Powered by [Nokensoft.com](https://nokensoft.com)
