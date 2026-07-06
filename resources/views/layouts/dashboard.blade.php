@@ -28,6 +28,7 @@
             ['route' => 'dashboard.members.index', 'active' => 'dashboard.members.*', 'icon' => 'fa-user-check', 'label' => 'Member'],
             ['route' => 'dashboard.packages.index', 'active' => 'dashboard.packages.*', 'icon' => 'fa-box-open', 'label' => 'Paket Layanan'],
             ['route' => 'dashboard.orders.index', 'active' => 'dashboard.orders.*', 'icon' => 'fa-file-invoice-dollar', 'label' => 'Pemesanan'],
+            ['route' => 'dashboard.transactions.index', 'active' => 'dashboard.transactions.*', 'icon' => 'fa-wallet', 'label' => 'Kas & Transaksi'],
             ['route' => 'dashboard.reports.members', 'active' => 'dashboard.reports.members', 'icon' => 'fa-user-group', 'label' => 'Laporan Member'],
             ['route' => 'dashboard.reports.finance', 'active' => 'dashboard.reports.finance', 'icon' => 'fa-chart-pie', 'label' => 'Laporan Keuangan'],
         ];
@@ -55,7 +56,7 @@
                 </a>
             @endforeach
 
-            <p class="px-4 pt-4 pb-2 text-[10px] font-bold uppercase tracking-widest text-muted/70">Simulasi</p>
+            <p class="px-4 pt-4 pb-2 text-[10px] font-bold uppercase tracking-widest text-muted/70">Layanan &amp; Keuangan</p>
             @foreach ($simNav as $item)
                 <a href="{{ route($item['route']) }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-medium transition {{ $navClass($item['active']) }}">

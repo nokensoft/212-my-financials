@@ -24,18 +24,29 @@
             <p class="text-muted mt-3 text-sm">Masuk ke Area Member untuk memesan Layanan Eksklusif</p>
         </div>
 
-        <div class="mb-4 flex items-start gap-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-            <i class="fa-solid fa-flask mt-0.5"></i>
-            <p class="text-xs font-medium">Mode simulasi — proses masuk belum aktif. Halaman ini hanya konsep desain.</p>
-        </div>
+        @if (session('info'))
+            <div class="mb-4 flex items-start gap-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
+                <i class="fa-solid fa-circle-info mt-0.5"></i><p class="text-xs font-medium">{{ session('info') }}</p>
+            </div>
+        @endif
+        @if (session('status'))
+            <div class="mb-4 flex items-start gap-3 rounded-xl bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3">
+                <i class="fa-solid fa-circle-check mt-0.5"></i><p class="text-xs font-medium">{{ session('status') }}</p>
+            </div>
+        @endif
 
         <div class="bg-cream rounded-3xl shadow-xl border border-line p-8">
-            <form onsubmit="return false" class="space-y-5">
+            @if ($errors->any())
+                <div class="mb-5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">{{ $errors->first() }}</div>
+            @endif
+
+            <form method="POST" action="{{ route('member.login') }}" class="space-y-5">
+                @csrf
                 <div>
                     <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted"><i class="fa-solid fa-phone"></i></span>
-                        <input id="phone" type="tel" name="phone" placeholder="08xx xxxx xxxx"
+                        <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required autofocus placeholder="08xx xxxx xxxx"
                             class="w-full rounded-xl border border-line bg-white pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                     </div>
                 </div>
@@ -43,19 +54,14 @@
                     <label for="password" class="block text-sm font-semibold mb-1.5">Kata Sandi</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted"><i class="fa-solid fa-lock"></i></span>
-                        <input id="password" type="password" name="password" placeholder="••••••••"
+                        <input id="password" type="password" name="password" required placeholder="••••••••"
                             class="w-full rounded-xl border border-line bg-white pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                     </div>
                 </div>
-                <div class="flex items-center justify-between text-sm">
-                    <label class="flex items-center gap-2 text-muted">
-                        <input type="checkbox" class="rounded border-line text-rust focus:ring-rust"> Ingat saya
-                    </label>
-                    <a href="#" class="text-rust font-semibold hover:text-rust-dark">Lupa sandi?</a>
-                </div>
-                <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">
-                    Masuk
-                </button>
+                <label class="flex items-center gap-2 text-sm text-muted">
+                    <input type="checkbox" name="remember" class="rounded border-line text-rust focus:ring-rust"> Ingat saya
+                </label>
+                <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">Masuk</button>
             </form>
 
             <div class="flex items-center gap-3 my-5">
@@ -64,10 +70,10 @@
                 <span class="h-px flex-1 bg-line"></span>
             </div>
 
-            <button type="button" onclick="return false"
+            <a href="{{ route('member.google') }}"
                 class="w-full flex items-center justify-center gap-3 border border-line bg-white text-ink font-semibold py-3 rounded-xl hover:bg-stone transition">
                 <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"> Masuk dengan Google
-            </button>
+            </a>
         </div>
 
         <div class="text-center mt-6 text-sm text-muted space-y-2">

@@ -3,39 +3,44 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Support\SampleData;
+use App\Models\Member;
+use App\Models\Transaction;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
-/**
- * SIMULASI laporan: rekap member & laporan keuangan (terintegrasi invoice).
- * Semua angka disimulasikan dari SampleData.
- */
 class ReportController extends Controller
 {
     public function members(): View
     {
-        $members = SampleData::members();
-        $recap = SampleData::recap();
+        $members = Member::withCount('orders')->latest()->get();
 
-        return view('dashboard.reports.members', compact('members', 'recap'));
+        return view('dashboard.reports.members', compact('members'));
     }
 
     public function finance(): View
     {
-        $entries = SampleData::financeEntries();
-        $recap = SampleData::recap();
-        $monthly = SampleData::monthlyRevenue();
+        $entries = Transaction::with('order')->orderBy('date')->orderBy('id')->get();
 
-        $income = collect($entries)->where('type', 'pemasukan')->sum('amount');
-        $expense = collect($entries)->where('type', 'pengeluaran')->sum('amount');
+        $income = (int) $entries->where('type', Transaction::TYPE_INCOME)->sum('amount');
+        $expense = (int) $entries->where('type', Transaction::TYPE_EXPENSE)->sum('amount');
+
+        // Grafik: pemasukan 6 bulan terakhir.
+        $monthly = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $month = Carbon::now()->subMonths($i);
+            $amount = (int) $entries
+                ->where('type', Transaction::TYPE_INCOME)
+                ->filter(fn ($t) => $t->date->isSameMonth($month))
+                ->sum('amount');
+            $monthly[] = ['month' => $month->locale('id')->translatedFormat('M'), 'amount' => $amount];
+        }
 
         return view('dashboard.reports.finance', [
             'entries' => $entries,
-            'recap' => $recap,
             'monthly' => $monthly,
-            'income' => (int) $income,
-            'expense' => (int) $expense,
-            'net' => (int) ($income - $expense),
+            'income' => $income,
+            'expense' => $expense,
+            'net' => $income - $expense,
         ]);
     }
 }

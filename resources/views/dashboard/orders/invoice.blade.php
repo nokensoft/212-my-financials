@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $order['invoice'] }} · Invoice · {{ config('app.name') }}</title>
+    <title>{{ $order->invoice_no }} · Invoice · {{ config('app.name') }}</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="{{ asset('images/myf/logo-my-financials.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,24 +15,22 @@
 </head>
 
 @php
-    $subtotal = $order['amount'];
-    $tax = 0; // PPN disimulasikan 0
+    $subtotal = $order->amount;
+    $tax = 0;
     $total = $subtotal + $tax;
-    $paid = $order['status'] === 'lunas';
+    $paid = $order->isPaid();
 @endphp
 
 <body class="font-sans bg-stone text-ink p-4 sm:p-8">
 
-    {{-- Toolbar (tidak ikut tercetak) --}}
     <div class="no-print max-w-3xl mx-auto mb-4 flex items-center justify-between gap-3">
-        <a href="{{ route('dashboard.orders.show', $order['id']) }}" class="inline-flex items-center gap-2 text-sm text-muted hover:text-rust"><i class="fa-solid fa-arrow-left text-xs"></i> Kembali</a>
+        <button type="button" onclick="history.back()" class="inline-flex items-center gap-2 text-sm text-muted hover:text-rust"><i class="fa-solid fa-arrow-left text-xs"></i> Kembali</button>
         <div class="flex items-center gap-2">
             <span class="text-xs text-muted hidden sm:inline">Gunakan "Simpan sebagai PDF" pada dialog cetak.</span>
             <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition"><i class="fa-solid fa-print"></i> Cetak / Simpan PDF</button>
         </div>
     </div>
 
-    {{-- Lembar invoice --}}
     <div class="max-w-3xl mx-auto bg-white border border-line rounded-2xl shadow-sm overflow-hidden">
         <div class="p-8 sm:p-10">
             <div class="flex items-start justify-between gap-6 pb-6 border-b border-line">
@@ -45,7 +43,7 @@
                 </div>
                 <div class="text-right">
                     <h1 class="font-serif text-2xl font-semibold">INVOICE</h1>
-                    <p class="text-sm font-mono text-muted mt-1">{{ $order['invoice'] }}</p>
+                    <p class="text-sm font-mono text-muted mt-1">{{ $order->invoice_no }}</p>
                     <span class="inline-block mt-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $paid ? 'bg-primary-100 text-primary-700' : 'bg-amber-100 text-amber-700' }}">{{ $paid ? 'LUNAS' : 'BELUM LUNAS' }}</span>
                 </div>
             </div>
@@ -53,14 +51,16 @@
             <div class="grid sm:grid-cols-2 gap-6 py-6 text-sm">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wide text-muted mb-1">Ditagihkan kepada</p>
-                    <p class="font-bold">{{ $order['member'] }}</p>
-                    <p class="text-muted">{{ $order['phone'] }}</p>
+                    <p class="font-bold">{{ $order->member?->name ?? '—' }}</p>
+                    <p class="text-muted">{{ $order->member?->phone }}</p>
                 </div>
                 <div class="sm:text-right">
                     <p class="text-[11px] font-bold uppercase tracking-wide text-muted mb-1">Detail</p>
-                    <p><span class="text-muted">Tanggal:</span> <span class="font-semibold">{{ \Illuminate\Support\Carbon::parse($order['ordered_at'])->locale('id')->translatedFormat('d F Y') }}</span></p>
-                    <p><span class="text-muted">Jadwal:</span> <span class="font-semibold">{{ \Illuminate\Support\Carbon::parse($order['scheduled_at'])->locale('id')->translatedFormat('d F Y, H:i') }} WIT</span></p>
-                    <p><span class="text-muted">Pembayaran:</span> <span class="font-semibold">{{ $order['method'] }}</span></p>
+                    <p><span class="text-muted">Tanggal:</span> <span class="font-semibold">{{ $order->created_at->locale('id')->translatedFormat('d F Y') }}</span></p>
+                    @if ($order->scheduled_at)
+                        <p><span class="text-muted">Jadwal:</span> <span class="font-semibold">{{ $order->scheduled_at->locale('id')->translatedFormat('d F Y, H:i') }} WIT</span></p>
+                    @endif
+                    <p><span class="text-muted">Pembayaran:</span> <span class="font-semibold">{{ $order->payment_method ?? '—' }}</span></p>
                 </div>
             </div>
 
@@ -76,10 +76,10 @@
                     <tr>
                         <td class="py-4">
                             <p class="font-semibold">Paket Layanan Eksklusif</p>
-                            <p class="text-muted text-xs">{{ $order['package'] }}</p>
+                            <p class="text-muted text-xs">{{ $order->package_name }}</p>
                         </td>
                         <td class="py-4 text-center">1</td>
-                        <td class="py-4 text-right font-semibold">Rp {{ number_format($order['amount'], 0, ',', '.') }}</td>
+                        <td class="py-4 text-right font-semibold">Rp {{ number_format($order->amount, 0, ',', '.') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <p class="mt-8 text-center text-xs text-muted">Terima kasih atas kepercayaan Anda. Invoice ini contoh simulasi dan tidak berlaku sebagai bukti pembayaran resmi.</p>
+            <p class="mt-8 text-center text-xs text-muted">Terima kasih atas kepercayaan Anda kepada MY Financials.</p>
         </div>
     </div>
 

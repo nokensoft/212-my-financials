@@ -39,7 +39,7 @@ class PostController extends Controller
     {
         $data = $this->validated($request);
 
-        $post = new Post();
+        $post = new Post;
         $post->user_id = $request->user()->id;
         $this->persist($post, $data, $request);
 

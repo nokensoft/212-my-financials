@@ -23,14 +23,6 @@
         ],
         'sameAs' => ['https://instagram.com/my.financials'],
     ];
-
-    $paketLayanan = [
-        ['no' => '01', 'tier' => 'Paket Dasar', 'name' => 'Cek Kesehatan Keuangan'],
-        ['no' => '02', 'tier' => 'Paket Menengah', 'name' => 'Rencana Finansial Pribadi'],
-        ['no' => '03', 'tier' => 'Paket Bisnis', 'name' => 'Keuangan UMKM'],
-        ['no' => '04', 'tier' => 'Paket Bisnis', 'name' => 'Review Keuangan Bisnis'],
-        ['no' => '05', 'tier' => 'Paket Bisnis', 'name' => 'Set-up Pembukuan Keuangan (Project-based)'],
-    ];
 @endphp
 
 @push('head')
@@ -254,28 +246,24 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            @foreach ($paketLayanan as $paket)
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/30 transition duration-300">
+            @forelse ($packages as $i => $paket)
+                @php($free = $paket->price <= 0)
+                <div class="{{ $free ? 'bg-white/20 backdrop-blur-md border-white/40 shadow-xl' : 'bg-white/10 backdrop-blur-sm border-white/10 hover:border-white/30' }} p-6 rounded-xl border transition duration-300 flex flex-col">
                     <div class="flex items-start gap-4">
-                        <div class="bg-white/20 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">{{ $paket['no'] }}</div>
+                        <div class="{{ $free ? 'bg-white text-rust' : 'bg-white/20 text-white' }} font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-75">{{ $paket['tier'] }}</h4>
-                            <p class="text-white text-lg font-medium mt-1">“{{ $paket['name'] }}”</p>
+                            <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-80">{{ $paket->tier }}</h4>
+                            <p class="text-white text-lg font-medium mt-1">{{ $paket->name }}</p>
                         </div>
                     </div>
-                </div>
-            @endforeach
-
-            <div class="bg-white/20 backdrop-blur-md p-6 rounded-xl border border-white/40 shadow-xl transform lg:scale-105 transition duration-300 flex flex-col justify-between">
-                <div class="flex items-start gap-4">
-                    <div class="bg-white text-rust font-bold w-10 h-10 rounded-lg flex items-center justify-center shrink-0">06</div>
-                    <div>
-                        <h4 class="text-white font-bold text-sm uppercase tracking-wider opacity-90">Sesi Khusus</h4>
-                        <p class="text-white text-lg font-extrabold mt-1">Konsultasi Gratis 30 Menit</p>
-                        <p class="text-white text-sm opacity-90 mt-1">Untuk menentukan paket yang paling sesuai dengan kebutuhan Anda.</p>
+                    <div class="mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
+                        <span class="text-white font-bold">{{ $paket->price_label }}</span>
+                        <a href="{{ auth('member')->check() ? route('member.orders.create', $paket) : route('member.login') }}" class="text-white/90 text-sm font-semibold hover:text-white">Pesan <i class="fa-solid fa-arrow-right text-xs"></i></a>
                     </div>
                 </div>
-            </div>
+            @empty
+                <div class="md:col-span-2 lg:col-span-3 text-center text-white/80 py-8">Paket layanan segera hadir.</div>
+            @endforelse
         </div>
 
         <div class="text-center flex flex-wrap justify-center gap-4">
@@ -286,10 +274,10 @@
                 <span>Pilih Paket &amp; Amankan Jadwal</span>
                 <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
             </a>
-            <a href="{{ route('member.login') }}"
+            <a href="{{ auth('member')->check() ? route('member.packages') : route('member.login') }}"
                class="inline-flex items-center gap-3 border-[1.5px] border-white/50 text-white font-bold px-8 py-4 rounded-full hover:bg-white/10 transition">
                 <i class="fa-solid fa-user"></i>
-                <span>Masuk Member untuk Memesan</span>
+                <span>{{ auth('member')->check() ? 'Pesan dari Area Member' : 'Masuk Member untuk Memesan' }}</span>
             </a>
         </div>
     </div>

@@ -25,39 +25,44 @@
         </div>
 
         <div class="mb-4 flex items-start gap-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-            <i class="fa-solid fa-flask mt-0.5"></i>
-            <p class="text-xs font-medium">Mode simulasi — pendaftaran belum aktif. Setelah mendaftar, akun akan diverifikasi oleh admin.</p>
+            <i class="fa-solid fa-circle-info mt-0.5"></i>
+            <p class="text-xs font-medium">Setelah mendaftar, akun Anda akan berstatus <b>menunggu verifikasi</b> oleh admin.</p>
         </div>
 
         <div class="bg-cream rounded-3xl shadow-xl border border-line p-8">
-            <form onsubmit="return false" class="space-y-4">
+            @if ($errors->any())
+                <div class="mb-5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                    <ul class="list-disc list-inside space-y-0.5">@foreach ($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('member.register') }}" class="space-y-4">
+                @csrf
                 <div>
                     <label for="name" class="block text-sm font-semibold mb-1.5">Nama Lengkap</label>
-                    <input id="name" type="text" name="name" placeholder="Nama Anda"
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" required placeholder="Nama Anda"
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <div>
                     <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP</label>
-                    <input id="phone" type="tel" name="phone" placeholder="08xx xxxx xxxx"
+                    <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required placeholder="08xx xxxx xxxx"
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-semibold mb-1.5">Kata Sandi</label>
-                    <input id="password" type="password" name="password" placeholder="••••••••"
+                    <input id="password" type="password" name="password" required placeholder="Minimal 6 karakter"
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold mb-1.5">Ulangi Kata Sandi</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" placeholder="••••••••"
+                    <input id="password_confirmation" type="password" name="password_confirmation" required placeholder="••••••••"
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <label class="flex items-start gap-2 text-sm text-muted">
-                    <input type="checkbox" class="mt-1 rounded border-line text-rust focus:ring-rust">
+                    <input type="checkbox" required class="mt-1 rounded border-line text-rust focus:ring-rust">
                     <span>Saya menyetujui <a href="{{ route('pages.privacy') }}" class="text-rust font-semibold">Kebijakan Privasi</a> MY Financials.</span>
                 </label>
-                <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">
-                    Daftar
-                </button>
+                <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">Daftar</button>
             </form>
 
             <div class="flex items-center gap-3 my-5">
@@ -66,10 +71,10 @@
                 <span class="h-px flex-1 bg-line"></span>
             </div>
 
-            <button type="button" onclick="return false"
+            <a href="{{ route('member.google') }}"
                 class="w-full flex items-center justify-center gap-3 border border-line bg-white text-ink font-semibold py-3 rounded-xl hover:bg-stone transition">
                 <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"> Daftar dengan Google
-            </button>
+            </a>
         </div>
 
         <div class="text-center mt-6 text-sm text-muted space-y-2">

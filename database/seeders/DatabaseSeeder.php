@@ -4,7 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Album;
 use App\Models\Category;
+use App\Models\Member;
+use App\Models\Order;
 use App\Models\Post;
+use App\Models\ServicePackage;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -138,6 +142,83 @@ class DatabaseSeeder extends Seeder
                     $album->photos()->create(['image_path' => $path, 'sort_order' => $order + 1]);
                 }
             }
+        }
+
+        // ── Layanan Eksklusif: Paket, Member, Pemesanan, Transaksi ──
+        $packageData = [
+            ['code' => 'PKT-00', 'tier' => 'Sesi Khusus', 'name' => 'Konsultasi Gratis 30 Menit', 'price' => 0, 'duration' => '30 menit', 'sort' => 0, 'desc' => 'Sesi perkenalan untuk menentukan paket yang paling sesuai dengan kebutuhan Anda.'],
+            ['code' => 'PKT-01', 'tier' => 'Paket Dasar', 'name' => 'Cek Kesehatan Keuangan', 'price' => 250000, 'duration' => '60 menit', 'sort' => 1, 'desc' => 'Evaluasi menyeluruh kondisi keuangan pribadi Anda saat ini.'],
+            ['code' => 'PKT-02', 'tier' => 'Paket Menengah', 'name' => 'Rencana Finansial Pribadi', 'price' => 500000, 'duration' => '90 menit', 'sort' => 2, 'desc' => 'Penyusunan rencana keuangan pribadi yang terarah dan realistis.'],
+            ['code' => 'PKT-03', 'tier' => 'Paket Bisnis', 'name' => 'Keuangan UMKM', 'price' => 750000, 'duration' => '120 menit', 'sort' => 3, 'desc' => 'Pendampingan tata kelola keuangan untuk pelaku UMKM.'],
+            ['code' => 'PKT-04', 'tier' => 'Paket Bisnis', 'name' => 'Review Keuangan Bisnis', 'price' => 1000000, 'duration' => '2 sesi', 'sort' => 4, 'desc' => 'Peninjauan laporan dan performa keuangan bisnis Anda.'],
+            ['code' => 'PKT-05', 'tier' => 'Paket Bisnis', 'name' => 'Set-up Pembukuan Keuangan', 'price' => 3500000, 'duration' => 'Project-based', 'sort' => 5, 'desc' => 'Membangun sistem pembukuan usaha dari nol hingga siap pakai.'],
+        ];
+        $packages = [];
+        foreach ($packageData as $p) {
+            $packages[$p['code']] = ServicePackage::updateOrCreate(
+                ['code' => $p['code']],
+                ['tier' => $p['tier'], 'name' => $p['name'], 'slug' => Str::slug($p['name']), 'price' => $p['price'], 'duration' => $p['duration'], 'description' => $p['desc'], 'is_active' => true, 'sort_order' => $p['sort']],
+            );
+        }
+
+        $memberData = [
+            ['name' => 'Siti Rahmawati', 'phone' => '082111223344', 'email' => 'siti.umkm@gmail.com', 'google_id' => 'g-1001', 'status' => Member::STATUS_VERIFIED],
+            ['name' => 'Maria Kombo', 'phone' => '085233449900', 'email' => 'maria.kombo@gmail.com', 'google_id' => 'g-1002', 'status' => Member::STATUS_VERIFIED],
+            ['name' => 'Agustina Rumbewas', 'phone' => '081122334455', 'email' => 'agustina.r@gmail.com', 'google_id' => 'g-1003', 'status' => Member::STATUS_VERIFIED],
+            ['name' => 'Yohanis Wenda', 'phone' => '081355667788', 'email' => null, 'google_id' => null, 'status' => Member::STATUS_PENDING],
+            ['name' => 'Deni Prasetyo', 'phone' => '081277881122', 'email' => null, 'google_id' => null, 'status' => Member::STATUS_PENDING],
+        ];
+        $members = [];
+        foreach ($memberData as $m) {
+            $members[$m['phone']] = Member::updateOrCreate(
+                ['phone' => $m['phone']],
+                ['name' => $m['name'], 'email' => $m['email'], 'google_id' => $m['google_id'], 'status' => $m['status'], 'password' => 'password'],
+            );
+        }
+
+        $orderData = [
+            ['inv' => 'INV-2026-0001', 'phone' => '082111223344', 'pkg' => 'PKT-03', 'method' => 'Transfer BCA', 'status' => Order::STATUS_LUNAS, 'ordered' => '2026-06-21', 'sched' => '2026-06-28 10:00'],
+            ['inv' => 'INV-2026-0002', 'phone' => '085233449900', 'pkg' => 'PKT-05', 'method' => 'Transfer Mandiri', 'status' => Order::STATUS_TERVERIFIKASI, 'ordered' => '2026-06-24', 'sched' => '2026-07-05 13:00'],
+            ['inv' => 'INV-2026-0003', 'phone' => '081355667788', 'pkg' => 'PKT-02', 'method' => 'QRIS', 'status' => Order::STATUS_MENUNGGU, 'ordered' => '2026-06-29', 'sched' => '2026-07-08 09:00'],
+            ['inv' => 'INV-2026-0004', 'phone' => '081122334455', 'pkg' => 'PKT-01', 'method' => 'Transfer BCA', 'status' => Order::STATUS_LUNAS, 'ordered' => '2026-06-18', 'sched' => '2026-06-25 15:00'],
+            ['inv' => 'INV-2026-0005', 'phone' => '085233449900', 'pkg' => 'PKT-04', 'method' => 'Transfer Mandiri', 'status' => Order::STATUS_BARU, 'ordered' => '2026-07-01', 'sched' => '2026-07-12 10:00'],
+        ];
+        foreach ($orderData as $d) {
+            $member = $members[$d['phone']];
+            $pkg = $packages[$d['pkg']];
+            $verified = in_array($d['status'], [Order::STATUS_TERVERIFIKASI, Order::STATUS_LUNAS], true);
+            $order = Order::updateOrCreate(
+                ['invoice_no' => $d['inv']],
+                [
+                    'member_id' => $member->id,
+                    'service_package_id' => $pkg->id,
+                    'package_name' => $pkg->name,
+                    'amount' => $pkg->price,
+                    'payment_method' => $d['method'],
+                    'status' => $d['status'],
+                    'scheduled_at' => Carbon::parse($d['sched']),
+                    'verified_by' => $verified ? $admin->id : null,
+                    'verified_at' => $verified ? Carbon::parse($d['ordered'])->addDay() : null,
+                ],
+            );
+
+            if ($order->status === Order::STATUS_LUNAS && $order->amount > 0) {
+                Transaction::updateOrCreate(
+                    ['order_id' => $order->id, 'type' => Transaction::TYPE_INCOME],
+                    ['date' => Carbon::parse($d['ordered'])->addDay()->toDateString(), 'category' => 'Penjualan Paket', 'description' => 'Pembayaran '.$order->invoice_no.' — '.$order->package_name, 'amount' => $order->amount],
+                );
+            }
+        }
+
+        $expenses = [
+            ['date' => '2026-06-03', 'desc' => 'Biaya transportasi pendampingan UMKM', 'amount' => 350000, 'cat' => 'Operasional'],
+            ['date' => '2026-06-14', 'desc' => 'Cetak modul pelatihan literasi keuangan', 'amount' => 420000, 'cat' => 'Materi'],
+        ];
+        foreach ($expenses as $e) {
+            Transaction::updateOrCreate(
+                ['type' => Transaction::TYPE_EXPENSE, 'description' => $e['desc']],
+                ['date' => $e['date'], 'category' => $e['cat'], 'amount' => $e['amount']],
+            );
         }
     }
 }

@@ -5,8 +5,6 @@
 @php($maxMonthly = max(collect($monthly)->max('amount'), 1))
 
 @section('content')
-    @include('partials.sim-badge', ['note' => 'Laporan keuangan disimulasikan & terintegrasi dengan invoice pemesanan. Angka hanya contoh.'])
-
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-2xl border border-line p-5">
             <div class="flex items-center justify-between">
@@ -32,9 +30,8 @@
     </div>
 
     <div class="grid lg:grid-cols-3 gap-6">
-        {{-- Grafik pendapatan bulanan --}}
         <div class="bg-white rounded-2xl border border-line p-6">
-            <h3 class="font-bold mb-4">Pendapatan Bulanan</h3>
+            <h3 class="font-bold mb-4">Pemasukan Bulanan</h3>
             <div class="flex items-end justify-between gap-2 h-44">
                 @foreach ($monthly as $m)
                     <div class="flex-1 flex flex-col items-center gap-2">
@@ -47,11 +44,13 @@
             </div>
         </div>
 
-        {{-- Buku transaksi --}}
         <div class="lg:col-span-2 bg-white rounded-2xl border border-line overflow-hidden">
             <div class="p-5 border-b border-line flex items-center justify-between">
                 <h3 class="font-bold">Transaksi (Terintegrasi Invoice)</h3>
-                <button type="button" onclick="window.print()" class="no-print inline-flex items-center gap-2 text-sm text-rust font-semibold hover:text-rust-dark"><i class="fa-solid fa-print"></i> Cetak</button>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('dashboard.transactions.index') }}" class="text-sm text-rust font-semibold hover:underline">Kelola</a>
+                    <button type="button" onclick="window.print()" class="no-print inline-flex items-center gap-2 text-sm text-rust font-semibold hover:text-rust-dark"><i class="fa-solid fa-print"></i> Cetak</button>
+                </div>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
@@ -64,16 +63,18 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-line">
-                        @foreach ($entries as $e)
+                        @forelse ($entries as $e)
                             <tr>
-                                <td class="px-5 py-3 text-muted whitespace-nowrap">{{ \Illuminate\Support\Carbon::parse($e['date'])->locale('id')->translatedFormat('d M Y') }}</td>
-                                <td class="px-5 py-3 font-mono text-xs">{{ $e['ref'] }}</td>
-                                <td class="px-5 py-3">{{ $e['description'] }}</td>
-                                <td class="px-5 py-3 text-right font-bold {{ $e['type'] === 'pemasukan' ? 'text-primary' : 'text-red-600' }}">
-                                    {{ $e['type'] === 'pemasukan' ? '+' : '−' }} Rp {{ number_format($e['amount'], 0, ',', '.') }}
+                                <td class="px-5 py-3 text-muted whitespace-nowrap">{{ $e->date->locale('id')->translatedFormat('d M Y') }}</td>
+                                <td class="px-5 py-3 font-mono text-xs">{{ $e->order?->invoice_no ?? $e->category ?? '—' }}</td>
+                                <td class="px-5 py-3">{{ $e->description }}</td>
+                                <td class="px-5 py-3 text-right font-bold {{ $e->isIncome() ? 'text-primary' : 'text-red-600' }}">
+                                    {{ $e->isIncome() ? '+' : '−' }} Rp {{ number_format($e->amount, 0, ',', '.') }}
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr><td colspan="4" class="px-5 py-10 text-center text-muted">Belum ada transaksi.</td></tr>
+                        @endforelse
                     </tbody>
                     <tfoot>
                         <tr class="bg-stone/60 font-bold">

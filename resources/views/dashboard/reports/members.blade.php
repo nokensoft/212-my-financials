@@ -3,26 +3,19 @@
 @section('page_title', 'Laporan Member')
 
 @php
-    $all = collect($members);
-    $verified = $all->where('status', 'verified')->count();
-    $pending = $all->where('status', 'pending')->count();
-    $rejected = $all->where('status', 'rejected')->count();
-    $viaGoogle = $all->where('provider', 'google')->count();
-    $viaPhone = $all->where('provider', 'phone')->count();
-    $total = max($all->count(), 1);
-    $statusMap = [
-        'verified' => ['label' => 'Terverifikasi', 'class' => 'bg-primary-100 text-primary-700'],
-        'pending' => ['label' => 'Menunggu', 'class' => 'bg-amber-100 text-amber-700'],
-        'rejected' => ['label' => 'Ditolak', 'class' => 'bg-red-100 text-red-700'],
-    ];
+    $statuses = \App\Models\Member::statuses();
+    $verified = $members->where('status', 'verified')->count();
+    $pending = $members->where('status', 'pending')->count();
+    $rejected = $members->where('status', 'rejected')->count();
+    $viaGoogle = $members->whereNotNull('google_id')->count();
+    $viaPhone = $members->count() - $viaGoogle;
+    $total = max($members->count(), 1);
 @endphp
 
 @section('content')
-    @include('partials.sim-badge', ['note' => 'Laporan member disimulasikan dari data contoh.'])
-
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         @foreach ([
-            ['label' => 'Total Member', 'value' => $all->count(), 'icon' => 'fa-user-group'],
+            ['label' => 'Total Member', 'value' => $members->count(), 'icon' => 'fa-user-group'],
             ['label' => 'Terverifikasi', 'value' => $verified, 'icon' => 'fa-user-check'],
             ['label' => 'Menunggu', 'value' => $pending, 'icon' => 'fa-user-clock'],
             ['label' => 'Ditolak', 'value' => $rejected, 'icon' => 'fa-user-xmark'],
@@ -68,17 +61,19 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-line">
-                        @foreach ($members as $m)
+                        @forelse ($members as $m)
                             <tr>
                                 <td class="px-5 py-3">
-                                    <p class="font-semibold">{{ $m['name'] }}</p>
-                                    <p class="text-xs text-muted">{{ $m['phone'] }}</p>
+                                    <p class="font-semibold">{{ $m->name }}</p>
+                                    <p class="text-xs text-muted">{{ $m->phone }}</p>
                                 </td>
-                                <td class="px-5 py-3 hidden sm:table-cell text-muted">{{ \Illuminate\Support\Carbon::parse($m['joined_at'])->locale('id')->translatedFormat('d M Y') }}</td>
-                                <td class="px-5 py-3 font-semibold">{{ $m['orders'] }}</td>
-                                <td class="px-5 py-3"><span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $statusMap[$m['status']]['class'] }}">{{ $statusMap[$m['status']]['label'] }}</span></td>
+                                <td class="px-5 py-3 hidden sm:table-cell text-muted">{{ $m->created_at->locale('id')->translatedFormat('d M Y') }}</td>
+                                <td class="px-5 py-3 font-semibold">{{ $m->orders_count }}</td>
+                                <td class="px-5 py-3"><span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $statuses[$m->status]['class'] ?? '' }}">{{ $statuses[$m->status]['label'] ?? $m->status }}</span></td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr><td colspan="4" class="px-5 py-10 text-center text-muted">Belum ada member.</td></tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

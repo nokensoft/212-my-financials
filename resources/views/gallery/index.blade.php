@@ -23,27 +23,31 @@
             @if ($albums->count())
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($albums as $album)
-                        <a href="{{ route('gallery.show', $album->slug) }}"
-                            class="group bg-cream p-4 rounded-2xl border border-line hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(184,74,26,0.12)] transition-all duration-300">
-                            <div class="aspect-[1.91/1] overflow-hidden rounded-xl border border-line bg-stone">
-                                @if ($album->cover_image)
-                                    <img src="{{ asset($album->cover_image) }}" alt="{{ $album->title }}" loading="lazy"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                @endif
-                            </div>
-                            <div class="flex flex-wrap gap-1 mt-4">
-                                @foreach ($album->categories as $cat)
-                                    <span class="bg-rust/[0.08] text-rust text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $cat->name }}</span>
-                                @endforeach
-                            </div>
-                            <p class="mt-2 text-base font-bold leading-snug group-hover:text-rust transition-colors">{{ $album->title }}</p>
-                            <div class="mt-3 pt-3 border-t border-line flex items-center justify-between text-xs text-muted font-medium">
-                                <span class="flex items-center gap-1.5 bg-rust/[0.08] text-rust px-2.5 py-1 rounded-md text-[11px] font-bold">
-                                    <i class="fa-regular fa-images"></i> {{ $album->photos_count }} Foto
-                                </span>
-                                <span class="flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> {{ $album->views }}</span>
-                            </div>
-                        </a>
+                        
+                    <a href="{{ route('gallery.show', $album->slug) }}"
+                        class="group bg-cream p-4 rounded-2xl border border-line hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(184,74,26,0.12)] transition-all duration-300">
+                        
+                        <div class="aspect-[4/5] overflow-hidden rounded-xl border border-line bg-stone">
+                            @if ($album->cover_image)
+                                <img src="{{ asset($album->cover_image) }}" alt="{{ $album->title }}" loading="lazy"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @endif
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-1 mt-4">
+                            @foreach ($album->categories as $cat)
+                                <span class="bg-rust/[0.08] text-rust text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $cat->name }}</span>
+                            @endforeach
+                        </div>
+                        <p class="mt-2 text-base font-bold leading-snug group-hover:text-rust transition-colors">{{ $album->title }}</p>
+                        <div class="mt-3 pt-3 border-t border-line flex items-center justify-between text-xs text-muted font-medium">
+                            <span class="flex items-center gap-1.5 bg-rust/[0.08] text-rust px-2.5 py-1 rounded-md text-[11px] font-bold">
+                                <i class="fa-regular fa-images"></i> {{ $album->photos_count }} Foto
+                            </span>
+                            <span class="flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> {{ $album->views }}</span>
+                        </div>
+                    </a>
+
                     @endforeach
                 </div>
 

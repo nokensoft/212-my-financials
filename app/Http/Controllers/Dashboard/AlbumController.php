@@ -39,7 +39,7 @@ class AlbumController extends Controller
     {
         $data = $this->validated($request);
 
-        $album = new Album();
+        $album = new Album;
         $album->user_id = $request->user()->id;
         $this->persist($album, $data, $request);
 

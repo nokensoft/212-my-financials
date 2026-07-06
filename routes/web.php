@@ -13,10 +13,12 @@ use App\Http\Controllers\Dashboard\PhotoController;
 use App\Http\Controllers\Dashboard\PostController as DashboardPostController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ReportController as DashboardReportController;
+use App\Http\Controllers\Dashboard\TransactionController as DashboardTransactionController;
 use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Member\AreaController as MemberAreaController;
+use App\Http\Controllers\Member\AuthController as MemberAuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -34,10 +36,31 @@ Route::get('/faq', [PageController::class, 'faq'])->name('pages.faq');
 Route::get('/peta-situs', [PageController::class, 'sitemap'])->name('pages.sitemap');
 
 /*
-| Area Member (SIMULASI — konsep desain, tanpa autentikasi/DB)
+| Area Member (visitor) — autentikasi member (guard "member") + pemesanan paket
 */
-Route::get('/member/masuk', [MemberController::class, 'login'])->name('member.login');
-Route::get('/member/daftar', [MemberController::class, 'register'])->name('member.register');
+Route::prefix('member')->name('member.')->group(function () {
+    Route::middleware('guest:member')->group(function () {
+        Route::get('masuk', [MemberAuthController::class, 'showLogin'])->name('login');
+        Route::post('masuk', [MemberAuthController::class, 'login']);
+        Route::get('daftar', [MemberAuthController::class, 'showRegister'])->name('register');
+        Route::post('daftar', [MemberAuthController::class, 'register']);
+    });
+    Route::get('google', [MemberAuthController::class, 'google'])->name('google');
+
+    Route::middleware('auth:member')->group(function () {
+        Route::post('logout', [MemberAuthController::class, 'logout'])->name('logout');
+        Route::get('/', [MemberAreaController::class, 'dashboard'])->name('dashboard');
+        Route::get('paket', [MemberAreaController::class, 'packages'])->name('packages');
+        Route::get('pesan/{package:slug}', [MemberAreaController::class, 'orderCreate'])->name('orders.create');
+        Route::post('pesan/{package:slug}', [MemberAreaController::class, 'orderStore'])->name('orders.store');
+        Route::get('pesanan', [MemberAreaController::class, 'orders'])->name('orders');
+        Route::get('pesanan/{order}', [MemberAreaController::class, 'orderShow'])->whereNumber('order')->name('orders.show');
+        Route::get('pesanan/{order}/invoice', [MemberAreaController::class, 'invoice'])->whereNumber('order')->name('orders.invoice');
+        Route::get('profil', [MemberAreaController::class, 'profileEdit'])->name('profile.edit');
+        Route::put('profil', [MemberAreaController::class, 'profileUpdate'])->name('profile.update');
+    });
+});
+
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.xml');
 Route::get('/robots.txt', function () {
     $lines = [
@@ -86,18 +109,30 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::post('media', [MediaController::class, 'upload'])->name('media.upload');
 
         /*
-        | Fitur SIMULASI (konsep desain, tanpa DB/CRUD) — admin & operator
+        | Layanan: Member, Paket, Pemesanan, Kas & Laporan — admin & operator
         */
         Route::get('members', [DashboardMemberController::class, 'index'])->name('members.index');
+        Route::get('members/create', [DashboardMemberController::class, 'create'])->name('members.create');
+        Route::post('members', [DashboardMemberController::class, 'store'])->name('members.store');
         Route::get('members/{member}', [DashboardMemberController::class, 'show'])->whereNumber('member')->name('members.show');
+        Route::get('members/{member}/edit', [DashboardMemberController::class, 'edit'])->whereNumber('member')->name('members.edit');
+        Route::put('members/{member}', [DashboardMemberController::class, 'update'])->whereNumber('member')->name('members.update');
+        Route::delete('members/{member}', [DashboardMemberController::class, 'destroy'])->whereNumber('member')->name('members.destroy');
+        Route::post('members/{member}/verify', [DashboardMemberController::class, 'verify'])->whereNumber('member')->name('members.verify');
+        Route::post('members/{member}/reject', [DashboardMemberController::class, 'reject'])->whereNumber('member')->name('members.reject');
 
-        Route::get('packages', [DashboardPackageController::class, 'index'])->name('packages.index');
-        Route::get('packages/create', [DashboardPackageController::class, 'create'])->name('packages.create');
-        Route::get('packages/{code}/edit', [DashboardPackageController::class, 'edit'])->name('packages.edit');
+        Route::post('packages/{package}/toggle', [DashboardPackageController::class, 'toggle'])->name('packages.toggle');
+        Route::resource('packages', DashboardPackageController::class)->except('show');
 
         Route::get('orders', [DashboardOrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/create', [DashboardOrderController::class, 'create'])->name('orders.create');
+        Route::post('orders', [DashboardOrderController::class, 'store'])->name('orders.store');
         Route::get('orders/{order}', [DashboardOrderController::class, 'show'])->whereNumber('order')->name('orders.show');
         Route::get('orders/{order}/invoice', [DashboardOrderController::class, 'invoice'])->whereNumber('order')->name('orders.invoice');
+        Route::patch('orders/{order}/status', [DashboardOrderController::class, 'updateStatus'])->whereNumber('order')->name('orders.status');
+        Route::delete('orders/{order}', [DashboardOrderController::class, 'destroy'])->whereNumber('order')->name('orders.destroy');
+
+        Route::resource('transactions', DashboardTransactionController::class)->except('show');
 
         Route::get('reports/members', [DashboardReportController::class, 'members'])->name('reports.members');
         Route::get('reports/finance', [DashboardReportController::class, 'finance'])->name('reports.finance');

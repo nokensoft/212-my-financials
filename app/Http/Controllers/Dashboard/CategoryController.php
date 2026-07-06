@@ -20,7 +20,7 @@ class CategoryController extends Controller
 
     public function create(): View
     {
-        $category = new Category();
+        $category = new Category;
 
         return view('dashboard.categories.form', compact('category'));
     }
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-        $category = new Category();
+        $category = new Category;
         $this->persist($category, $data);
 
         return redirect()->route('dashboard.categories.index')->with('status', 'Kategori berhasil dibuat.');

@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Slug
@@ -9,7 +10,7 @@ class Slug
     /**
      * Generate a slug that is unique within the given model's table.
      *
-     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     * @param  class-string<Model>  $modelClass
      */
     public static function unique(string $modelClass, string $value, ?int $ignoreId = null, string $column = 'slug'): string
     {

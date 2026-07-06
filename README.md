@@ -16,14 +16,17 @@ Dibangun dengan **Laravel 12** dan mengadopsi konsep desain dari template statis
 ### Dinamis — dikelola penuh di dashboard (dengan database)
 - **Blog & Kategori**: CRUD dengan editor TinyMCE, multi-kategori, sampul, status, jadwal terbit, kolom SEO.
 - **Album & Galeri**: CRUD album + unggah/hapus banyak foto.
+- **Member**: CRUD + **verifikasi/tolak** akun member (pending → terverifikasi/ditolak).
+- **Paket Layanan** (Layanan Eksklusif): CRUD paket + aktif/nonaktif; paket aktif tampil di beranda & area member.
+- **Pemesanan**: buat/daftar/detail pesanan, alur status **baru → menunggu verifikasi → terverifikasi → lunas** (atau batal), dan **cetak Invoice** (siap cetak via `window.print()` → Simpan sebagai PDF). Saat lunas, pemasukan otomatis tercatat ke Kas.
+- **Kas & Transaksi**: CRUD pemasukan/pengeluaran (pemasukan invoice lunas tercatat otomatis).
+- **Laporan**: rekap dashboard, **Laporan Member**, dan **Laporan Keuangan** (terintegrasi invoice).
 - **Pengguna** (khusus admin) & **Profil**.
 
-### Simulasi — konsep desain (TANPA database & proses CRUD)
-Fitur berikut dibuat sebagai **konsep tampilan Blade** memakai data contoh in-memory (`app/Support/SampleData.php`). Tombol aksi bersifat visual.
-- **Sistem Member**: halaman daftar/masuk memakai **nomor HP + kata sandi** atau **akun Google**, lalu **verifikasi oleh admin** (dashboard). Peran: admin, operator.
-- **Paket Layanan** (Layanan Eksklusif): daftar & form konsep paket. Peran: admin, operator.
-- **Pemesanan paket** oleh member → **verifikasi** → **cetak Invoice PDF** (halaman invoice siap cetak via `window.print()` → Simpan sebagai PDF). Peran: admin, operator.
-- **Rekap di dashboard**, **Laporan Member**, dan **Laporan Keuangan** yang terintegrasi dengan invoice.
+### Area Member (visitor) — autentikasi & pemesanan
+Guard **`member`** terpisah dari admin/operator.
+- **Daftar / Masuk** memakai **nomor HP + kata sandi** (tombol **Google** tersedia sebagai stub — belum dikonfigurasi). Akun baru berstatus *menunggu verifikasi*.
+- Member dapat **memesan paket**, melihat **riwayat pesanan**, **mencetak invoice** miliknya, dan **mengubah profil**.
 
 ## Teknologi
 - **Backend**: PHP 8.2, Laravel 12
@@ -48,29 +51,35 @@ npm run build
 npm run dev          # Terminal 1 — Vite
 php artisan serve    # Terminal 2 — server aplikasi
 ```
-Buka `http://127.0.0.1:8000`. Dashboard: `/dashboard` · Login admin: `/login` · Area member (simulasi): `/member/masuk`.
+Buka `http://127.0.0.1:8000`. Dashboard: `/dashboard` · Login admin: `/login` · Area member: `/member/masuk`.
 
 ## Akun Default
 Dibuat oleh seeder — **segera ganti kata sandi setelah login pertama**.
 - **Admin** — email: `admin@myfinancials.id` · kata sandi: `password`
 - **Operator** — email: `operator@myfinancials.id` · kata sandi: `password`
+- **Member** (contoh, terverifikasi) — nomor HP: `082111223344` · kata sandi: `password`
 
 ## Peta Rute Utama
 - Publik: `/`, `/blog`, `/blog/{slug}`, `/galeri`, `/galeri/{slug}`, `/faq`, `/kebijakan-privasi`, `/peta-situs`, `/sitemap.xml`, `/robots.txt`
-- Member (simulasi): `/member/masuk`, `/member/daftar`
+- Area Member: `/member/masuk`, `/member/daftar`, `/member` (beranda), `/member/paket`, `/member/pesan/{paket}`, `/member/pesanan`, `/member/pesanan/{id}/invoice`, `/member/profil`
 - API (JSON): `/api/posts`, `/api/categories`, `/api/albums`
 - Dashboard (perlu login): `/dashboard`, `/dashboard/posts`, `/dashboard/categories`, `/dashboard/albums`, `/dashboard/users` (admin)
-- Dashboard simulasi: `/dashboard/members`, `/dashboard/packages`, `/dashboard/orders`, `/dashboard/orders/{id}/invoice`, `/dashboard/reports/members`, `/dashboard/reports/finance`
+- Dashboard layanan: `/dashboard/members`, `/dashboard/packages`, `/dashboard/orders`, `/dashboard/orders/{id}/invoice`, `/dashboard/transactions`, `/dashboard/reports/members`, `/dashboard/reports/finance`
+
+## Model Data (Layanan)
+- `members` (guard `member`; status pending/verified/rejected)
+- `service_packages` (paket Layanan Eksklusif)
+- `orders` (member → paket; status + invoice + verifikasi)
+- `transactions` (kas; pemasukan invoice lunas tercatat otomatis)
 
 ## Kustomisasi Tema
 - **Warna & font**: `resources/css/app.css` (`@theme`) — skala `primary` (rust), warna `rust`/`ink`/`stone`/`cream`/`muted`/`line`, serta `--font-serif` (Lora).
 - **Interaksi publik** (slider hero, scroll-spy, menu mobile, form→WA, back-to-top): `resources/js/app.js`.
 - **Nomor WhatsApp**: ubah `WA_NUMBER` di `resources/js/app.js` dan tautan `wa.me/...` di `resources/views/home.blade.php`.
-- **Data contoh simulasi**: `app/Support/SampleData.php`.
 
 ## Catatan
 - `_template/` disimpan sebagai **referensi desain** (landing page statis asli).
-- Fitur simulasi belum menyimpan data. Untuk mengaktifkannya, tambahkan migrasi, model, dan proses CRUD yang sesungguhnya.
+- **Login Google** masih berupa stub (butuh kredensial OAuth / Laravel Socialite untuk diaktifkan).
 
 ## Author
 - **Nokensoft.com** — PIC: 082199558191 (Janzen)

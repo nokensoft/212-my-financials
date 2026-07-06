@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,8 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'role' => \App\Http\Middleware\EnsureUserHasRole::class,
+            'role' => EnsureUserHasRole::class,
         ]);
+
+        // Tamu yang mengakses area member diarahkan ke login member,
+        // selain itu ke login admin.
+        $middleware->redirectGuestsTo(fn ($request) => $request->is('member', 'member/*')
+            ? route('member.login')
+            : route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

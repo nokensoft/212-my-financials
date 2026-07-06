@@ -3,11 +3,6 @@
 @section('page_title', 'Dashboard')
 
 @section('content')
-    {{-- Rekap SIMULASI --}}
-    <div class="flex items-center gap-2 mb-3">
-        <h2 class="font-bold text-lg">Ringkasan</h2>
-        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">Simulasi</span>
-    </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         @php
             $maxMonthly = max(collect($monthly)->max('amount'), 1);
@@ -30,7 +25,6 @@
         @endforeach
     </div>
 
-    {{-- Pemesanan terbaru + grafik --}}
     <div class="grid lg:grid-cols-3 gap-6 mb-8">
         <div class="lg:col-span-2 bg-white rounded-2xl border border-line overflow-hidden">
             <div class="p-5 border-b border-line flex items-center justify-between">
@@ -40,17 +34,19 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <tbody class="divide-y divide-line">
-                        @foreach ($recentOrders as $o)
+                        @forelse ($recentOrders as $o)
                             <tr class="hover:bg-stone/60">
                                 <td class="px-5 py-3">
-                                    <p class="font-semibold">{{ $o['member'] }}</p>
-                                    <p class="text-xs text-muted">{{ $o['package'] }}</p>
+                                    <p class="font-semibold">{{ $o->member?->name ?? '—' }}</p>
+                                    <p class="text-xs text-muted">{{ $o->package_name }}</p>
                                 </td>
-                                <td class="px-5 py-3 font-bold whitespace-nowrap">Rp {{ number_format($o['amount'], 0, ',', '.') }}</td>
-                                <td class="px-5 py-3"><span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $orderStatuses[$o['status']]['class'] }}">{{ $orderStatuses[$o['status']]['label'] }}</span></td>
-                                <td class="px-5 py-3 text-right"><a href="{{ route('dashboard.orders.show', $o['id']) }}" class="text-rust text-xs font-semibold hover:underline">Detail</a></td>
+                                <td class="px-5 py-3 font-bold whitespace-nowrap">Rp {{ number_format($o->amount, 0, ',', '.') }}</td>
+                                <td class="px-5 py-3"><span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $o->statusClass() }}">{{ $o->statusLabel() }}</span></td>
+                                <td class="px-5 py-3 text-right"><a href="{{ route('dashboard.orders.show', $o) }}" class="text-rust text-xs font-semibold hover:underline">Detail</a></td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr><td class="px-5 py-10 text-center text-muted text-sm">Belum ada pemesanan.</td></tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -72,7 +68,6 @@
         </div>
     </div>
 
-    {{-- Statistik konten (data nyata) --}}
     <h2 class="font-bold text-lg mb-3">Konten</h2>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         @php
@@ -97,7 +92,7 @@
 
     <div class="flex flex-wrap gap-3 mb-8">
         <a href="{{ route('dashboard.posts.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-700 transition"><i class="fa-solid fa-plus"></i> Tulis Artikel</a>
-        <a href="{{ route('dashboard.albums.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-ink text-white text-sm font-semibold hover:opacity-90 transition"><i class="fa-solid fa-plus"></i> Buat Album</a>
+        <a href="{{ route('dashboard.orders.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-ink text-white text-sm font-semibold hover:opacity-90 transition"><i class="fa-solid fa-plus"></i> Buat Pemesanan</a>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-6">
