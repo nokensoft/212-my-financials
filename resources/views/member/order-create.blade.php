@@ -10,7 +10,7 @@
     <div class="grid lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 bg-white rounded-2xl border border-line p-6">
             <h1 class="font-bold text-lg mb-4">Konfirmasi Pemesanan</h1>
-            <form method="POST" action="{{ route('member.orders.store', $package) }}" class="space-y-5">
+            <form method="POST" action="{{ route('member.orders.store', $package) }}" enctype="multipart/form-data" class="space-y-5">
                 @csrf
                 <div>
                     <label class="block text-sm font-semibold mb-1.5">Metode Pembayaran</label>
@@ -28,6 +28,10 @@
                 <div>
                     <label class="block text-sm font-semibold mb-1.5">Catatan <span class="text-muted font-normal">(opsional)</span></label>
                     <textarea name="notes" rows="3" class="{{ $input }}" placeholder="Ceritakan kebutuhan Anda...">{{ old('notes') }}</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1.5">Bukti Transfer <span class="text-muted font-normal">(opsional, bisa diunggah nanti)</span></label>
+                    @include('partials.proof-field')
                 </div>
                 <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rust text-white text-sm font-bold hover:bg-rust-dark transition">
                     <i class="fa-solid fa-check"></i> Buat Pesanan

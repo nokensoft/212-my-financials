@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('dashboard.orders.store') }}" class="max-w-2xl bg-white rounded-2xl border border-line p-6 space-y-5"
+    <form method="POST" action="{{ route('dashboard.orders.store') }}" enctype="multipart/form-data" class="max-w-2xl bg-white rounded-2xl border border-line p-6 space-y-5"
         x-data="{ prices: {{ Illuminate\Support\Js::from($priceMap) }}, amount: '{{ old('amount') }}', setPrice(id) { if (this.prices[id] !== undefined) this.amount = this.prices[id]; } }">
         @csrf
         <div class="grid sm:grid-cols-2 gap-4">
@@ -65,6 +65,12 @@
         <div>
             <label class="block text-sm font-semibold mb-1.5">Catatan <span class="text-muted font-normal">(opsional)</span></label>
             <textarea name="notes" rows="2" class="{{ $input }}">{{ old('notes') }}</textarea>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1.5">Bukti Transfer <span class="text-muted font-normal">(opsional)</span></label>
+            <input type="file" name="payment_proof" accept="image/*,application/pdf"
+                class="w-full text-sm text-muted file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-slate-800 file:text-white file:text-sm file:font-semibold">
+            <p class="text-xs text-muted mt-1">Format JPG, PNG, atau PDF. Maksimal 4 MB.</p>
         </div>
         <div class="flex gap-2 pt-2">
             <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-700 transition"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>

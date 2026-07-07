@@ -44,23 +44,22 @@
     <div class="relative z-[2] max-w-[880px] mx-auto flex flex-col items-center px-6 pt-28 pb-20 max-[900px]:pt-[100px] max-[900px]:pb-16">
         <div class="hero-badge"><i class="fa-solid fa-map-pin"></i> Papua, Indonesia</div>
         <h1 class="hero-title">
-            Mitra Keuangan<br>
-            <em>Terpercaya</em><br>
-            untuk UMKM Papua
+            Membangun<br>
+            <em>Keputusan Keuangan</em><br>
+            yang lebih baik.
         </h1>
         <p class="hero-desc">
-            MY Financials berkomitmen memberdayakan pelaku usaha kecil dan menengah di Papua untuk membangun
-            bisnis yang sehat, mandiri, dan berkelanjutan melalui solusi keuangan yang praktis dan mudah dipahami.
+            MY Financials membantu Anda membangun sistem keuangan yang sehat agar dapat mengambil keputusan dengan percaya diri dan bertumbuh secara berkelanjutan.
         </p>
         <div class="flex gap-3 flex-wrap justify-center max-[480px]:flex-col max-[480px]:w-full">
             <a href="#layanan" class="btn-primary justify-center max-[480px]:w-full"><i class="fa-solid fa-circle-right"></i> Lihat Layanan</a>
             <a href="#kontak" class="btn-ghost justify-center max-[480px]:w-full"><i class="fa-regular fa-envelope"></i> Hubungi Kami</a>
         </div>
         <div class="grid grid-cols-2 navmenu:grid-cols-4 gap-3.5 max-[480px]:gap-2.5 w-full mt-[52px]">
-            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-lightbulb"></i></div><span>Pendekatan Praktis &amp; Aplikatif</span></div>
-            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-map-location-dot"></i></div><span>Kontekstual Lokal Papua</span></div>
+            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-lightbulb"></i></div><span>Pemberdayaa & Edukasi</span></div>
+            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-map-location-dot"></i></div><span>Pendekatan Kontekstual Lokal</span></div>
             <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-venus"></i></div><span>Pemberdayaan Perempuan</span></div>
-            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div><span>Transparan &amp; Terpercaya</span></div>
+            <div class="highlight-box"><div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div><span>Fokus Pada Keberlanjutan</span></div>
         </div>
     </div>
 </section>
@@ -72,35 +71,34 @@
             <span class="section-label !text-left">Siapa Kami</span>
             <h2 class="section-title !text-left">Layanan Keuangan Profesional yang Memberdayakan</h2>
             <div class="section-divider !mx-0"></div>
+            <p class="mb-5 text-xl font-bold">
+                PT Mey Hangrang Jaya 
+            </p>
             <p class="lead mb-5">
-                MY Financials adalah layanan profesional yang menyediakan solusi pembukuan, konsultasi keuangan,
-                dan perencanaan bisnis bagi pelaku usaha UMKM.
+                MY Financials adalah jasa profesional di bidang konsultasi keuangan, pembukuan (bookkeeping), penyusunan dan pengembangan sistem keuangan, pelatihan, edukasi, serta pendampingan bagi pelaku usaha, yayasan, organisasi, hingga individu. 
             </p>
             <p class="text-muted text-[.9rem] leading-[1.75]">
-                Dengan pendekatan yang ramah dan mudah dipahami, kami membantu pemilik usaha mengelola keuangan
-                secara lebih teratur, transparan, dan strategis — sehingga keputusan bisnis dapat diambil dengan
-                lebih percaya diri.
+                Kami berkomitmen untuk membantu klien membangun pengelolaan keuangan yang tertata, akurat, praktis, dan berkelanjutan melalui layanan konsultasi, penyusunan laporan keuangan, implementasi sistem pembukuan, pelatihan, workshop, serta solusi keuangan yang disesuaikan dengan kebutuhan masing-masing klien. 
             </p>
             <p class="text-muted text-[.9rem] leading-[1.75] mt-3.5">
-                MY Financials aktif terlibat dalam pendidikan keuangan, terutama untuk pemberdayaan ekonomi perempuan
-                di Papua, dan berkolaborasi dengan Pemerintah Daerah, yayasan, serta platform UMKM lainnya di Indonesia.
+                Layanan kami berfokus pada pemberdayaan pelaku usaha dan masyarakat agar mampu mengambil keputusan keuangan yang lebih baik, meningkatkan kesehatan finansial, serta mendukung pertumbuhan usaha secara berkelanjutan.
             </p>
         </div>
         <div class="grid grid-cols-1 navmenu:grid-cols-2 gap-3">
             <div class="siapa-card mitra-card navmenu:col-span-2">
                 <div class="siapa-card-icon"><i class="fa-solid fa-handshake"></i></div>
                 <h3>Mitra yang Dapat Diandalkan</h3>
-                <p>Pendampingan berkelanjutan dengan solusi yang transparan dan mudah diterapkan.</p>
+                <p>Pendampingan berkelanjutan dengan solusi yang kontekstual dan mudah diterapkan.</p>
             </div>
             <div class="siapa-card">
                 <div class="siapa-card-icon"><i class="fa-solid fa-book-open"></i></div>
                 <h3>Pembukuan Praktis</h3>
-                <p>Manual maupun digital, disesuaikan dengan kebutuhan dan kemampuan UMKM.</p>
+                <p>Manual maupun digital, disesuaikan dengan kebutuhan dan kemampuan pelaku usaha maupun individu.</p>
             </div>
             <div class="siapa-card">
                 <div class="siapa-card-icon"><i class="fa-solid fa-users"></i></div>
-                <h3>Kolaborasi Luas</h3>
-                <p>Bermitra dengan Pemda, yayasan, bank, dan platform keuangan UMKM nasional.</p>
+                <h3>Kolaborasi Lebih Luas</h3>
+                <p>Bermitra dengan pelaku usaha, yayasan atau organisasi, perbankan, dan platform keuangan, termasuk instansi terkait di pemerintah daerah.</p>
             </div>
         </div>
     </div>
@@ -118,19 +116,25 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">2023</div>
                     <h3>Berdiri &amp; Fokus Personal Finance</h3>
-                    <p>MY Financials didirikan dengan fokus awal pada layanan perencanaan keuangan pribadi untuk individu dan keluarga di Papua.</p>
+                    <p>MY Financials didirikan dengan fokus awal pada layanan perencanaan keuangan pribadi untuk individu dan keluarga.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">2024</div>
-                    <h3>Pivot ke Pemberdayaan UMKM</h3>
-                    <p>Sejak 2024, MY Financials berfokus membantu UMKM tumbuh melalui pengelolaan keuangan yang rapi, strategi bisnis yang tepat, dan literasi keuangan yang kuat.</p>
+                    <h3>Berkembang ke Pemberdayaan Usaha</h3>
+                    <p>Sejak 2024, MY Financials berfokus membantu usaha kerakyatan tumbuh melalui pengelolaan keuangan yang rapi, strategi bisnis yang tepat, dan literasi keuangan yang kuat.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-year">2024 – Sekarang</div>
+                    <div class="timeline-year">2025</div>
                     <h3>Ekspansi &amp; Kolaborasi</h3>
-                    <p>Melayani klien di Jayapura dan Bali, bermitra dengan Yayasan KOPERNIK, Bank ANP, Telkom AI, dan Dinas Koperasi Kabupaten Jayapura.</p>
+                    <p>Melayani klien lebih luas di lintas daerah atau organisasi seperti di Jayapura dan Bali, bermitra dengan Yayasan KOPERNIK, Bank ANP, dan Dinas Koperasi Kabupaten Jayapura</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2026/Sekarang</div>
+                    <h3>Integrasi Sitem Digital</h3>
+                    <p>Peningkatan kapasitas staf, pembuatan website untuk mengelola program atau layanan, perluasan jaringan kerja, dan masih banyak lagi..</p>
                 </div>
             </div>
         </div>
@@ -140,25 +144,38 @@
             <div class="section-divider !mx-0"></div>
             <ul class="value-list">
                 <li>
-                    <div class="value-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div><strong>Pendekatan Praktis &amp; Aplikatif</strong><p>Materi dan solusi dirancang agar langsung dapat diterapkan oleh pelaku usaha, bukan sekadar teori.</p></div>
+                    <div class="value-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div>
+                        <strong>Pemberdayaan &amp; Edukasi</strong>
+                        <p>Meningkatkan literasi keuangan melalui pelatihan dan pendampingan agar masyarakat serta pelaku usaha mampu mengambil keputusan finansial yang lebih baik.</p>
+                    </div>
                 </li>
                 <li>
-                    <div class="value-icon"><i class="fa-solid fa-map"></i></div>
-                    <div><strong>Kontekstual Lokal Papua</strong><p>Melibatkan pendekatan budaya dan sosial lokal agar edukasi lebih diterima dan berdampak jangka panjang.</p></div>
+                    <div class="value-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div>
+                        <strong>Pendekatan Kontekstual Lokal</strong>
+                        <p>Menyediakan solusi keuangan dan sistem pembukuan yang relevan, praktis, serta mudah diimplementasikan sesuai dengan karakteristik lingkungan usaha lokal.</p>
+                    </div>
                 </li>
                 <li>
                     <div class="value-icon"><i class="fa-solid fa-venus"></i></div>
-                    <div><strong>Pemberdayaan Perempuan</strong><p>Mendorong perempuan sebagai agen perubahan ekonomi lokal dengan keterampilan pengelolaan keuangan.</p></div>
+                    <div>
+                        <strong>Pemberdayaan Perempuan</strong>
+                        <p>Mendorong peran aktif perempuan dalam penguatan ekonomi melalui pembekalan keterampilan manajemen keuangan usaha dan keluarga yang mandiri.</p>
+                    </div>
                 </li>
                 <li>
-                    <div class="value-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div><strong>Transparan &amp; Terpercaya</strong><p>Solusi yang jujur, terukur, dan berorientasi pada keberlangsungan bisnis klien jangka panjang.</p></div>
+                    <div class="value-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <strong>Fokus Pada Keberlanjutan</strong>
+                        <p>Membangun sistem tata kelola keuangan yang tertata, akurat, dan transparan demi mendukung pertumbuhan usaha yang sehat dalam jangka panjang.</p>
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
 </section>
+
 
 {{-- ── VISI & MISI ── --}}
 <section id="visimisi" class="section bg-rust relative overflow-hidden">
@@ -169,21 +186,54 @@
         <div class="grid grid-cols-1 navmenu:grid-cols-2 gap-10">
             <div class="vm-card">
                 <h3><i class="fa-solid fa-eye"></i> Visi</h3>
-                <p>Menjadi mitra terpercaya yang dapat diandalkan, memberdayakan UMKM — terutama pelaku usaha di Papua — dalam membangun bisnis yang sehat, mandiri, dan berkelanjutan.</p>
-                <img src="{{ asset('images/myf/2.jpg') }}" alt="Kegiatan pemberdayaan UMKM di Papua" class="visi-img shadow-lg mt-5">
+                <p>Menjadi mitra profesional terpercaya dalam mewujudkan ekosistem usaha yang mandiri, sehat secara finansial, dan tumbuh berkelanjutan melalui pendekatan edukasi serta kearifan lokal.</p>
+                <img src="{{ asset('images/myf/1.jpg') }}" alt="Kegiatan pemberdayaan UMKM di Papua" class="visi-img shadow-lg mt-5">
             </div>
             <div class="vm-card">
                 <h3><i class="fa-solid fa-bullseye"></i> Misi</h3>
                 <ul class="misi-list">
-                    <li><div class="misi-num">1</div><div><strong>Edukasi Keuangan Praktis</strong><p>Membekali UMKM dengan literasi keuangan: pengelolaan kas, pembukuan, HPP, hingga harga jual.</p></div></li>
-                    <li><div class="misi-num">2</div><div><strong>Pendampingan Pembukuan UMKM</strong><p>Membantu mencatat transaksi, membuat laporan keuangan, dan menganalisis profitabilitas usaha.</p></div></li>
-                    <li><div class="misi-num">3</div><div><strong>Pemberdayaan Ekonomi Perempuan</strong><p>Mendorong perempuan sebagai agen perubahan ekonomi lokal dengan keterampilan keuangan yang kuat.</p></div></li>
-                    <li><div class="misi-num">4</div><div><strong>Materi Kontekstual Lokal</strong><p>Melibatkan pendekatan budaya dan sosial agar edukasi lebih diterima dan berdampak jangka panjang.</p></div></li>
+                    <li>
+                        <div class="misi-num">1</div>
+                        <div>
+                            <strong>Penyelenggaraan Kelas &amp; Workshop Literasi Keuangan</strong>
+                            <p>Menyusun modul edukasi praktis dan menyelenggarakan pelatihan pembukuan dasar, perhitungan HPP, serta strategi harga jual bagi pelaku usaha dan UMKM.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="misi-num">2</div>
+                        <div>
+                            <strong>Standardisasi Sistem Pembukuan Berbasis Konteks Lokal</strong>
+                            <p>Merancang dan mengimplementasikan sistem pencatatan keuangan yang adaptif, sederhana, serta menggunakan pendekatan budaya ekonomi masyarakat setempat agar mudah diterapkan.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="misi-num">3</div>
+                        <div>
+                            <strong>Pendampingan Manajemen Finansial Kelompok Perempuan</strong>
+                            <p>Membuat program inkubasi dan pendampingan khusus bagi perempuan penggerak usaha untuk mengoptimalkan pengelolaan keuangan rumah tangga dan operasional bisnis.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="misi-num">4</div>
+                        <div>
+                            <strong>Audit Internal &amp; Pengembangan Dashboard Keuangan Berkelanjutan</strong>
+                            <p>Membantu yayasan, organisasi, dan mitra usaha menyusun laporan keuangan akurat, menata sistem manajemen kas, serta menyediakan evaluasi finansial berkala demi keberlangsungan jangka panjang.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="misi-num">5</div>
+                        <div>
+                            <strong>Digitalisasi &amp; Integrasi Aplikasi Keuangan Modern</strong>
+                            <p>Memigrasikan pembukuan manual ke ekosistem digital melalui implementasi aplikasi kasir (POS), <b>cloud accounting</b>, dan integrasi <b>payment gateway</b> guna mempercepat efisiensi operasional.</p>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+
+
 
 {{-- ── LAYANAN ── --}}
 <section id="layanan" class="section bg-stone">
@@ -192,44 +242,53 @@
         <h2 class="section-title">Apa yang Kami Tawarkan</h2>
         <div class="section-divider"></div>
         <div class="grid grid-cols-1 navmenu:grid-cols-3 gap-5">
+            
+            {{-- Kartu 1: Edukasi & Pemberdayaan Perempuan --}}
             <div class="layanan-card featured">
                 <div class="layanan-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                <h3>Program Pelatihan</h3>
-                <p>Sesi pelatihan interaktif dan terstruktur yang dapat dihadiri secara kelompok maupun komunitas UMKM.</p>
+                <h3>Edukasi &amp; Workshop Pemberdayaan</h3>
+                <p>Program kelas interaktif yang dirancang khusus untuk meningkatkan kapasitas literasi keuangan pelaku usaha, komunitas, serta pendampingan finansial bagi kelompok perempuan.</p>
                 <ul class="layanan-items">
-                    <li><i class="fa-solid fa-check-circle"></i> Literasi keuangan dasar</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Pembukuan sederhana (manual &amp; digital)</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Laporan keuangan usaha</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Manajemen kas &amp; pengendalian biaya</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Perhitungan HPP &amp; penetapan harga</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Perencanaan keuangan usaha</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Literasi keuangan dasar &amp; rumah tangga</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Perhitungan HPP &amp; strategi penetapan harga</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Manajemen kas usaha &amp; pengendalian biaya</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Pelatihan akuntansi dasar untuk yayasan &amp; organisasi</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Program pendampingan keuangan mandiri bagi perempuan</li>
                 </ul>
             </div>
+
+            {{-- Kartu 2: Konsultasi & Keberlanjutan Kontekstual --}}
             <div class="layanan-card">
                 <div class="layanan-icon"><i class="fa-solid fa-comments-dollar"></i></div>
-                <h3>Konsultasi &amp; Pendampingan</h3>
-                <p>Sesi one-on-one bersama konsultan berpengalaman untuk kebutuhan keuangan bisnis Anda yang spesifik.</p>
+                <h3>Konsultasi &amp; Sistem Kontekstual</h3>
+                <p>Pendampingan intensif untuk menata tata kelola keuangan organisasi dan usaha lewat metode yang adaptif terhadap karakteristik budaya ekonomi lokal.</p>
                 <ul class="layanan-items">
-                    <li><i class="fa-solid fa-check-circle"></i> Penyusunan laporan keuangan</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Analisis profit usaha</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Penyusunan anggaran</li>
-                    <li><i class="fa-solid fa-check-circle"></i> SOP keuangan sederhana</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Penyusunan &amp; penataan laporan keuangan</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Desain SOP keuangan berbasis kearifan lokal</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Analisis profitabilitas &amp; perencanaan anggaran</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Analisa internal &amp; evaluasi finansial berkala</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Pendampingan bisnis berkelanjutan (sustainability)</li>
                 </ul>
             </div>
+
+            {{-- Kartu 3: Integrasi Digital --}}
             <div class="layanan-card">
-                <div class="layanan-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Set-up Pembukuan</h3>
-                <p>Kami bantu Anda memulai sistem pencatatan keuangan yang rapi dan berkelanjutan dari nol.</p>
+                <div class="layanan-icon"><i class="fa-solid fa-laptop-medical"></i></div>
+                <h3>Digitalisasi &amp; Set-up Keuangan</h3>
+                <p>Migrasi dan implementasi ekosistem pembukuan modern dari sistem manual ke platform digital terintegrasi untuk mempercepat efisiensi operasional.</p>
                 <ul class="layanan-items">
-                    <li><i class="fa-solid fa-check-circle"></i> Setup akun &amp; kategori transaksi</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Template pembukuan manual</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Penggunaan tools digital</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Monitor arus kas &amp; modal</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Set-up akun &amp; standardisasi kategori transaksi</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Implementasi aplikasi kasir modern (Point of Sales)</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Migrasi ke sistem cloud accounting</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Integrasi payment gateway &amp; dompet digital</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Pembuatan dashboard monitoring arus kas realtime</li>
                 </ul>
             </div>
+
         </div>
     </div>
 </section>
+
 
 {{-- ── LAYANAN EKSKLUSIF ── --}}
 <section id="eksklusif" class="section bg-rust relative overflow-hidden text-white">
@@ -321,7 +380,7 @@
                 <span class="porto-badge"><i class="fa-solid fa-landmark"></i> Bank ANP Merauke</span>
             </div>
             <div class="porto-item">
-                <span class="porto-year"><i class="fa-regular fa-calendar"></i> Agt – Okt 2025</span>
+                <span class="porto-year"><i class="fa-regular fa-calendar"></i> Jan – Jun 2026</span>
                 <h3>Telkom AI &amp; Capacity Building Pemuda Gereja</h3>
                 <p>Kolaborasi dengan Telkom AI untuk capacity building, serta pelatihan literasi keuangan bagi pemuda gereja dan seminar dalam rangka peluncuran yayasan.</p>
                 <span class="porto-badge"><i class="fa-solid fa-wifi"></i> Telkom AI</span>
@@ -435,22 +494,30 @@
         <span class="section-label">Tim Kami</span>
         <h2 class="section-title">Tim Profesional Kami</h2>
         <div class="section-divider"></div>
-        <div class="grid grid-cols-1 navmenu:grid-cols-2 gap-8 max-w-[920px] mx-auto">
+        <div class="grid grid-cols-1 navmenu:grid-cols-3 gap-8 max-w-lg mx-auto">
             <article class="team-card">
                 <div class="team-photo-wrap">
                     <img class="team-photo" src="{{ asset('images/myf/tim-meitilda.png') }}" alt="Meitilda Yaung, B.Acc., CFP®">
                 </div>
                 <h3 class="team-name">Meitilda Yaung, B.Acc., CFP®</h3>
-                <span class="team-role">Founder — Accountant, Financial Planner</span>
-                <p class="team-desc">Meitilda adalah seorang Akuntan &amp; Perencana Keuangan dengan pengalaman kerja lebih dari 10 tahun di bidang keuangan, khususnya akuntansi dan manajemen akuntansi pemerintahan di Australia Utara hingga perencanaan keuangan pribadi &amp; UKM. Meitilda juga aktif mengedukasi masyarakat akan pentingnya literasi keuangan.</p>
+                <span class="team-role">Founder & Consultant</span>
+                {{-- <p class="team-desc">Meitilda adalah seorang Akuntan &amp; Perencana Keuangan dengan pengalaman kerja lebih dari 10 tahun di bidang keuangan, khususnya akuntansi dan manajemen akuntansi pemerintahan di Australia Utara hingga perencanaan keuangan pribadi &amp; UKM. Meitilda juga aktif mengedukasi masyarakat akan pentingnya literasi keuangan.</p> --}}
             </article>
             <article class="team-card">
                 <div class="team-photo-wrap">
                     <img class="team-photo" src="{{ asset('images/myf/tim-hana.png') }}" alt="Hana Sesa, S.M">
                 </div>
                 <h3 class="team-name">Hana Sesa, S.M</h3>
-                <span class="team-role">Bookkeeper MY Financials</span>
-                <p class="team-desc">Hana adalah seorang Bookkeeper profesional dengan latar belakang S1 Manajemen. Hana memiliki pengalaman mencatat &amp; mengelola transaksi keuangan UKM dan aktif berperan memfasilitasi berbagai pelatihan keuangan yang dilakukan MY Financials.</p>
+                <span class="team-role">Bookkeeper & Facilitator</span>
+                {{-- <p class="team-desc">Hana adalah seorang Bookkeeper profesional dengan latar belakang S1 Manajemen. Hana memiliki pengalaman mencatat &amp; mengelola transaksi keuangan UKM dan aktif berperan memfasilitasi berbagai pelatihan keuangan yang dilakukan MY Financials.</p> --}}
+            </article>
+            <article class="team-card">
+                <div class="team-photo-wrap">
+                    <img class="team-photo" src="{{ asset('images/myf/tim-elis.png') }}" alt="Elis Muabuay">
+                </div>
+                <h3 class="team-name">Elis Muabuay</h3>
+                <span class="team-role">Operation Assistant</span>
+                {{-- <p class="team-desc">Lulusan Akademi Pariwisata 45 Jayapura, Aktivis Pariwisata 3 tahun. Design Grafis. Mendesain visual yang efektif dan kreatif.</p> --}}
             </article>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Http\Concerns\HandlesUploads;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\ServicePackage;
@@ -13,6 +14,8 @@ use Illuminate\View\View;
 
 class AreaController extends Controller
 {
+    use HandlesUploads;
+
     protected function member()
     {
         return Auth::guard('member')->user();
@@ -61,7 +64,10 @@ class AreaController extends Controller
             'payment_method' => ['nullable', 'string', 'max:100'],
             'scheduled_at' => ['nullable', 'date'],
             'notes' => ['nullable', 'string', 'max:1000'],
-        ]);
+            'payment_proof' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:4096'],
+        ], [], ['payment_proof' => 'bukti transfer']);
+
+        $proof = $this->storePublicImage($request->file('payment_proof'), 'uploads/payment-proofs');
 
         $order = $this->member()->orders()->create([
             'invoice_no' => Order::generateInvoiceNo(),
@@ -69,13 +75,38 @@ class AreaController extends Controller
             'package_name' => $package->name,
             'amount' => $package->price,
             'payment_method' => $data['payment_method'] ?? null,
-            'status' => Order::STATUS_BARU,
+            'payment_proof' => $proof,
+            'status' => $proof ? Order::STATUS_MENUNGGU : Order::STATUS_BARU,
             'scheduled_at' => $data['scheduled_at'] ?? null,
             'notes' => $data['notes'] ?? null,
         ]);
 
         return redirect()->route('member.orders.show', $order)
-            ->with('status', 'Pesanan dibuat. Silakan lakukan pembayaran & tunggu verifikasi admin.');
+            ->with('status', $proof
+                ? 'Pesanan dibuat & bukti transfer terunggah. Menunggu verifikasi admin.'
+                : 'Pesanan dibuat. Silakan unggah bukti transfer & tunggu verifikasi admin.');
+    }
+
+    public function uploadProof(Request $request, Order $order): RedirectResponse
+    {
+        $this->authorizeOrder($order);
+
+        abort_unless(in_array($order->status, [Order::STATUS_BARU, Order::STATUS_MENUNGGU], true), 403);
+
+        $request->validate([
+            'payment_proof' => ['required', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:4096'],
+        ], [], ['payment_proof' => 'bukti transfer']);
+
+        $this->deletePublicImage($order->payment_proof);
+        $order->payment_proof = $this->storePublicImage($request->file('payment_proof'), 'uploads/payment-proofs');
+
+        if ($order->status === Order::STATUS_BARU) {
+            $order->status = Order::STATUS_MENUNGGU;
+        }
+
+        $order->save();
+
+        return back()->with('status', 'Bukti transfer berhasil diunggah. Menunggu verifikasi admin.');
     }
 
     public function orderShow(Order $order): View

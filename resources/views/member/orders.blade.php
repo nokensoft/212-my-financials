@@ -27,6 +27,9 @@
                                 <td class="px-5 py-3">
                                     <p class="font-mono font-semibold text-xs">{{ $o->invoice_no }}</p>
                                     <p class="text-xs text-muted">{{ $o->created_at->locale('id')->translatedFormat('d M Y') }}</p>
+                                    @if ($o->hasPaymentProof())
+                                        <span class="inline-flex items-center gap-1 mt-0.5 text-[10px] font-semibold text-rust"><i class="fa-solid fa-paperclip"></i> Bukti transfer</span>
+                                    @endif
                                 </td>
                                 <td class="px-5 py-3 hidden sm:table-cell text-muted">{{ $o->package_name }}</td>
                                 <td class="px-5 py-3 font-bold">Rp {{ number_format($o->amount, 0, ',', '.') }}</td>

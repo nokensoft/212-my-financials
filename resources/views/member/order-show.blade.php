@@ -29,12 +29,33 @@
         @endif
 
         <div class="mt-6 pt-4 border-t border-line">
-            @if ($order->status === \App\Models\Order::STATUS_BARU)
-                <div class="rounded-xl bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 text-sm">
-                    <i class="fa-solid fa-circle-info"></i> Silakan lakukan pembayaran, lalu admin akan memverifikasi pesanan Anda.
+            <p class="text-muted text-xs uppercase font-bold mb-2">Bukti Transfer</p>
+            @if ($order->hasPaymentProof())
+                <div class="mb-3">
+                    @if ($order->paymentProofIsPdf())
+                        <a href="{{ asset($order->payment_proof) }}" target="_blank" class="inline-flex items-center gap-2 text-sm text-rust font-semibold hover:underline"><i class="fa-solid fa-file-pdf"></i> Lihat berkas bukti (PDF)</a>
+                    @else
+                        <a href="{{ asset($order->payment_proof) }}" target="_blank" class="block w-fit">
+                            <img src="{{ asset($order->payment_proof) }}" alt="Bukti transfer" class="max-h-56 rounded-xl border border-line object-contain">
+                        </a>
+                    @endif
                 </div>
+            @else
+                <p class="text-sm text-muted mb-3">Belum ada bukti transfer diunggah.</p>
             @endif
-            <a href="{{ route('member.orders.invoice', $order) }}" target="_blank" class="mt-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition">
+
+            @if (in_array($order->status, [\App\Models\Order::STATUS_BARU, \App\Models\Order::STATUS_MENUNGGU], true))
+                <form method="POST" action="{{ route('member.orders.proof', $order) }}" enctype="multipart/form-data" class="space-y-3">
+                    @csrf
+                    @include('partials.proof-field')
+                    <button type="submit" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition"><i class="fa-solid fa-upload"></i> {{ $order->hasPaymentProof() ? 'Ganti Bukti' : 'Unggah Bukti' }}</button>
+                </form>
+                <p class="text-xs text-muted mt-2"><i class="fa-solid fa-circle-info"></i> Setelah membayar, unggah bukti transfer agar admin dapat memverifikasi pesanan Anda.</p>
+            @endif
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-line">
+            <a href="{{ route('member.orders.invoice', $order) }}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition">
                 <i class="fa-solid fa-file-invoice"></i> Lihat / Cetak Invoice
             </a>
         </div>

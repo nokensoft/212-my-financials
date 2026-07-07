@@ -34,6 +34,9 @@
                             <td class="px-5 py-3">
                                 <p class="font-mono font-semibold text-xs">{{ $o->invoice_no }}</p>
                                 <p class="text-xs text-muted">{{ $o->created_at->locale('id')->translatedFormat('d M Y') }}</p>
+                                @if ($o->hasPaymentProof())
+                                    <span class="inline-flex items-center gap-1 mt-0.5 text-[10px] font-semibold text-primary-700"><i class="fa-solid fa-paperclip"></i> Bukti transfer</span>
+                                @endif
                             </td>
                             <td class="px-5 py-3">
                                 <p class="font-semibold">{{ $o->member?->name ?? '—' }}</p>

@@ -55,6 +55,32 @@
                     <p class="mt-4 pt-4 border-t border-line text-xs text-muted"><i class="fa-solid fa-user-check"></i> Diverifikasi oleh {{ $order->verifier?->name ?? 'admin' }} · {{ $order->verified_at->locale('id')->translatedFormat('d M Y, H:i') }}</p>
                 @endif
             </div>
+
+            <div class="bg-white rounded-2xl border border-line p-6">
+                <h3 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-receipt text-primary"></i> Bukti Transfer</h3>
+                @if ($order->hasPaymentProof())
+                    <div class="mb-4">
+                        @if ($order->paymentProofIsPdf())
+                            <a href="{{ asset($order->payment_proof) }}" target="_blank" class="inline-flex items-center gap-2 text-sm text-rust font-semibold hover:underline"><i class="fa-solid fa-file-pdf"></i> Lihat berkas bukti (PDF)</a>
+                        @else
+                            <a href="{{ asset($order->payment_proof) }}" target="_blank" class="block w-fit">
+                                <img src="{{ asset($order->payment_proof) }}" alt="Bukti transfer" class="max-h-72 rounded-xl border border-line object-contain">
+                            </a>
+                        @endif
+                    </div>
+                @else
+                    <p class="text-sm text-muted mb-4">Member belum mengunggah bukti transfer.</p>
+                @endif
+
+                @if ($order->status !== $O::STATUS_BATAL)
+                    <form method="POST" action="{{ route('dashboard.orders.proof', $order) }}" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-2">
+                        @csrf
+                        <input type="file" name="payment_proof" accept="image/*,application/pdf" required
+                            class="w-full text-sm text-muted file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-slate-800 file:text-white file:text-sm file:font-semibold">
+                        <button type="submit" class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-700 transition"><i class="fa-solid fa-upload"></i> {{ $order->hasPaymentProof() ? 'Ganti' : 'Unggah' }}</button>
+                    </form>
+                @endif
+            </div>
         </div>
 
         <div class="space-y-6">

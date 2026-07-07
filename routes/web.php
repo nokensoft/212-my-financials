@@ -55,6 +55,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::post('pesan/{package:slug}', [MemberAreaController::class, 'orderStore'])->name('orders.store');
         Route::get('pesanan', [MemberAreaController::class, 'orders'])->name('orders');
         Route::get('pesanan/{order}', [MemberAreaController::class, 'orderShow'])->whereNumber('order')->name('orders.show');
+        Route::post('pesanan/{order}/bukti', [MemberAreaController::class, 'uploadProof'])->whereNumber('order')->name('orders.proof');
         Route::get('pesanan/{order}/invoice', [MemberAreaController::class, 'invoice'])->whereNumber('order')->name('orders.invoice');
         Route::get('profil', [MemberAreaController::class, 'profileEdit'])->name('profile.edit');
         Route::put('profil', [MemberAreaController::class, 'profileUpdate'])->name('profile.update');
@@ -129,6 +130,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::post('orders', [DashboardOrderController::class, 'store'])->name('orders.store');
         Route::get('orders/{order}', [DashboardOrderController::class, 'show'])->whereNumber('order')->name('orders.show');
         Route::get('orders/{order}/invoice', [DashboardOrderController::class, 'invoice'])->whereNumber('order')->name('orders.invoice');
+        Route::post('orders/{order}/bukti', [DashboardOrderController::class, 'uploadProof'])->whereNumber('order')->name('orders.proof');
         Route::patch('orders/{order}/status', [DashboardOrderController::class, 'updateStatus'])->whereNumber('order')->name('orders.status');
         Route::delete('orders/{order}', [DashboardOrderController::class, 'destroy'])->whereNumber('order')->name('orders.destroy');
 

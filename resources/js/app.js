@@ -33,6 +33,48 @@ document.addEventListener('alpine:init', () => {
         },
     }));
 
+    // Pengunggah bukti transfer: drag & drop + pratinjau gambar, atau nama berkas untuk PDF.
+    Alpine.data('proofUploader', () => ({
+        preview: null,
+        fileName: null,
+        isPdf: false,
+        dragging: false,
+        setFiles(files) {
+            const file = files && files[0];
+            if (!file) {
+                return;
+            }
+            const isImage = file.type.startsWith('image/') || /\.(jpe?g|png|webp|gif)$/i.test(file.name);
+            const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+            if (!isImage && !isPdf) {
+                return;
+            }
+            this.fileName = file.name;
+            this.isPdf = isPdf && !isImage;
+            if (isImage) {
+                const reader = new FileReader();
+                reader.onload = (e) => { this.preview = e.target.result; };
+                reader.readAsDataURL(file);
+            } else {
+                this.preview = null;
+            }
+            const input = this.$refs.input;
+            if (input && files !== input.files) {
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                input.files = dt.files;
+            }
+        },
+        clear() {
+            this.preview = null;
+            this.fileName = null;
+            this.isPdf = false;
+            if (this.$refs.input) {
+                this.$refs.input.value = '';
+            }
+        },
+    }));
+
     Alpine.store('confirm', {
         open: false,
         title: 'Konfirmasi',

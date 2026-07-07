@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Concerns\HandlesUploads;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Order;
@@ -14,6 +15,8 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
+    use HandlesUploads;
+
     public function index(Request $request): View
     {
         $orders = Order::with('member')
@@ -48,7 +51,8 @@ class OrderController extends Controller
             'status' => ['required', Rule::in(array_keys(Order::statuses()))],
             'scheduled_at' => ['nullable', 'date'],
             'notes' => ['nullable', 'string', 'max:1000'],
-        ]);
+            'payment_proof' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:4096'],
+        ], [], ['payment_proof' => 'bukti transfer']);
 
         $package = ServicePackage::find($data['service_package_id']);
 
@@ -59,6 +63,7 @@ class OrderController extends Controller
         $order->package_name = $package->name;
         $order->amount = $data['amount'];
         $order->payment_method = $data['payment_method'] ?? null;
+        $order->payment_proof = $this->storePublicImage($request->file('payment_proof'), 'uploads/payment-proofs');
         $order->status = $data['status'];
         $order->scheduled_at = $data['scheduled_at'] ?? null;
         $order->notes = $data['notes'] ?? null;
@@ -90,8 +95,29 @@ class OrderController extends Controller
         return back()->with('status', 'Status pemesanan diperbarui menjadi "'.$order->statusLabel().'".');
     }
 
+    public function uploadProof(Request $request, Order $order): RedirectResponse
+    {
+        abort_if($order->status === Order::STATUS_BATAL, 403);
+
+        $request->validate([
+            'payment_proof' => ['required', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:4096'],
+        ], [], ['payment_proof' => 'bukti transfer']);
+
+        $this->deletePublicImage($order->payment_proof);
+        $order->payment_proof = $this->storePublicImage($request->file('payment_proof'), 'uploads/payment-proofs');
+
+        if ($order->status === Order::STATUS_BARU) {
+            $order->status = Order::STATUS_MENUNGGU;
+        }
+
+        $order->save();
+
+        return back()->with('status', 'Bukti transfer berhasil diunggah.');
+    }
+
     public function destroy(Order $order): RedirectResponse
     {
+        $this->deletePublicImage($order->payment_proof);
         $order->delete();
 
         return redirect()->route('dashboard.orders.index')->with('status', 'Pemesanan berhasil dihapus.');

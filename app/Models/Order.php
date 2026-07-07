@@ -20,7 +20,7 @@ class Order extends Model
 
     protected $fillable = [
         'invoice_no', 'member_id', 'service_package_id', 'package_name', 'amount',
-        'payment_method', 'status', 'scheduled_at', 'notes', 'verified_by', 'verified_at',
+        'payment_method', 'payment_proof', 'status', 'scheduled_at', 'notes', 'verified_by', 'verified_at',
     ];
 
     protected $casts = [
@@ -52,6 +52,16 @@ class Order extends Model
     public function isPaid(): bool
     {
         return $this->status === self::STATUS_LUNAS;
+    }
+
+    public function hasPaymentProof(): bool
+    {
+        return filled($this->payment_proof);
+    }
+
+    public function paymentProofIsPdf(): bool
+    {
+        return $this->hasPaymentProof() && str_ends_with(strtolower($this->payment_proof), '.pdf');
     }
 
     /**
