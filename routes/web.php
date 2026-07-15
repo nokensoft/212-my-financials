@@ -34,6 +34,18 @@ Route::get('/galeri/{album:slug}', [GalleryController::class, 'show'])->name('ga
 Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/faq', [PageController::class, 'faq'])->name('pages.faq');
 Route::get('/peta-situs', [PageController::class, 'sitemap'])->name('pages.sitemap');
+Route::get('/hubungi', [PageController::class, 'contact'])->name('pages.contact');
+
+/*
+| Tentang Kami (halaman statis)
+*/
+Route::prefix('tentang')->name('pages.about.')->group(function () {
+    Route::get('siapa-kami', [PageController::class, 'aboutWho'])->name('who');
+    Route::get('perjalanan', [PageController::class, 'aboutJourney'])->name('journey');
+    Route::get('nilai', [PageController::class, 'aboutValues'])->name('values');
+    Route::get('visi-misi', [PageController::class, 'aboutVision'])->name('vision');
+    Route::get('program-layanan', [PageController::class, 'aboutServices'])->name('services');
+});
 
 /*
 | Area Member (visitor) — autentikasi member (guard "member") + pemesanan paket

@@ -24,12 +24,9 @@
 
 <body class="font-sans bg-stone text-ink p-4 sm:p-8">
 
-    <div class="no-print max-w-3xl mx-auto mb-4 flex items-center justify-between gap-3">
-        <button type="button" onclick="history.back()" class="inline-flex items-center gap-2 text-sm text-muted hover:text-rust"><i class="fa-solid fa-arrow-left text-xs"></i> Kembali</button>
-        <div class="flex items-center gap-2">
-            <span class="text-xs text-muted hidden sm:inline">Gunakan "Simpan sebagai PDF" pada dialog cetak.</span>
-            <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition"><i class="fa-solid fa-print"></i> Cetak / Simpan PDF</button>
-        </div>
+    <div class="no-print max-w-3xl mx-auto mb-4 flex items-center justify-end gap-3">
+        <span class="text-xs text-muted hidden sm:inline">Gunakan "Simpan sebagai PDF" pada dialog cetak.</span>
+        <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition"><i class="fa-solid fa-print"></i> Cetak / Simpan PDF</button>
     </div>
 
     <div class="max-w-3xl mx-auto bg-white border border-line rounded-2xl shadow-sm overflow-hidden">
@@ -39,7 +36,7 @@
                     <img src="{{ asset('images/myf/logo-my-financials.png') }}" alt="MY Financials" class="h-14 w-auto">
                     <div>
                         <p class="font-serif font-semibold text-xl text-rust leading-none">MY Financials</p>
-                        <p class="text-xs text-muted mt-1">Mitra Keuangan UMKM Papua</p>
+                        <p class="text-xs text-muted mt-1">www.myfinancials.id</p>
                     </div>
                 </div>
                 <div class="text-right">
@@ -99,7 +96,7 @@
                     @if ($isFree)
                         <p class="text-muted leading-relaxed">Paket ini <span class="font-semibold text-ink">gratis</span> &mdash; tidak ada pembayaran yang perlu dilakukan.</p>
                     @else
-                        <p class="text-muted leading-relaxed">Transfer ke <span class="font-semibold text-ink">BCA 1234567890</span> a.n. MY Financials. Konfirmasi via WhatsApp +62 821 9090 2163.</p>
+                        <p class="text-muted leading-relaxed">Transfer ke <span class="font-semibold text-ink">Bank Mandiri 1540019669930</span> a.n. PT Mey Hangrang Jaya. Konfirmasi via WhatsApp +62 821 9090 2163.</p>
                     @endif
                 </div>
                 <div class="sm:text-right">

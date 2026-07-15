@@ -4,15 +4,15 @@
 @section('meta_description', 'Kumpulan artikel, tips, dan kabar terbaru MY Financials seputar literasi keuangan, pembukuan, dan pemberdayaan UMKM di Papua.')
 
 @section('content')
-    <header class="pt-32 pb-10 px-6 bg-stone border-b border-line">
-        <div class="max-w-7xl mx-auto">
-            <nav class="text-xs text-muted mb-3">
-                <a href="{{ route('home') }}" class="hover:text-rust">Beranda</a> <span class="mx-1">/</span> <span class="text-ink">Blog</span>
-            </nav>
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink">Blog &amp; Artikel</h1>
-            <p class="text-muted mt-2 max-w-2xl">Tips praktis literasi keuangan, pembukuan usaha, dan kabar terbaru program pemberdayaan UMKM MY Financials.</p>
-        </div>
-    </header>
+    @include('partials.page-header', [
+        'title' => 'Blog & Artikel',
+        'subtitle' => 'Tips praktis literasi keuangan, pembukuan usaha, dan kabar terbaru program pemberdayaan UMKM MY Financials.',
+        'width' => 'max-w-7xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Blog'],
+        ],
+    ])
 
     <section class="py-10 px-6 bg-cream">
         <div class="max-w-7xl mx-auto">
@@ -25,7 +25,7 @@
                     @foreach ($posts as $post)
                         <a href="{{ route('blog.show', $post->slug) }}"
                             class="group bg-cream rounded-2xl overflow-hidden border border-line hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(184,74,26,0.12)] transition-all duration-300 flex flex-col">
-                            <div class="w-full aspect-[1720/1080] overflow-hidden bg-stone">
+                            <div class="w-full aspect-[4/3] overflow-hidden bg-stone">
                                 @if ($post->cover_image)
                                     <img src="{{ asset($post->cover_image) }}" alt="{{ $post->title }}" loading="lazy" 
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">

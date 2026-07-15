@@ -21,7 +21,7 @@ class BlogController extends Controller
         $this->applyContentFilters($query, $request, ['title', 'excerpt', 'body']);
 
         /** @var LengthAwarePaginator $posts */
-        $posts = $query->paginate(9)->withQueryString();
+        $posts = $query->paginate(6)->withQueryString();
 
         return view('blog.index', compact('posts', 'categories'));
     }

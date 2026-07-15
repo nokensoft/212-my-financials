@@ -51,6 +51,7 @@
                 @endif
 
                 @if (in_array($order->status, [\App\Models\Order::STATUS_BARU, \App\Models\Order::STATUS_MENUNGGU], true))
+                    <div class="mb-4">@include('partials.bank-info')</div>
                     <form method="POST" action="{{ route('member.orders.proof', $order) }}" enctype="multipart/form-data" class="space-y-3">
                         @csrf
                         @include('partials.proof-field')

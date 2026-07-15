@@ -55,7 +55,7 @@
         </div>
     @endauth
 
-    <p>© {{ date('Y') }} <strong>MY Financials</strong>. Mitra Keuangan UMKM Papua. Sentani, Kab. Jayapura – Papua, Indonesia.</p>
+    <p>© {{ date('Y') }} <strong>MY Financials</strong> - Al right reserved</p>
 
     <a class="footer-credit" href="https://nokensoft.com" target="_blank" rel="noopener noreferrer">
         <img src="{{ asset('images/myf/logo-nokensoft.jpg') }}" alt="Nokensoft">

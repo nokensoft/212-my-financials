@@ -19,15 +19,7 @@
             <form method="POST" action="{{ route('member.orders.store', $package) }}" @unless ($package->isFree()) enctype="multipart/form-data" @endunless class="space-y-5">
                 @csrf
                 @unless ($package->isFree())
-                    <div>
-                        <label class="block text-sm font-semibold mb-1.5">Metode Pembayaran</label>
-                        <select name="payment_method" class="{{ $input }}">
-                            <option value="Transfer BCA">Transfer BCA</option>
-                            <option value="Transfer Mandiri">Transfer Mandiri</option>
-                            <option value="QRIS">QRIS</option>
-                            <option value="Tunai">Tunai</option>
-                        </select>
-                    </div>
+                    <input type="hidden" name="payment_method" value="Transfer Mandiri">
                 @endunless
                 <div>
                     <label class="block text-sm font-semibold mb-1.5">Jadwal Diinginkan <span class="text-muted font-normal">(opsional)</span></label>
@@ -49,15 +41,22 @@
             </form>
         </div>
 
-        <div class="bg-white rounded-2xl border border-line p-6 h-fit">
-            <p class="text-[10px] font-bold uppercase tracking-wider text-rust">{{ $package->tier }}</p>
-            <h2 class="font-bold text-lg mt-1">{{ $package->name }}</h2>
-            <p class="text-sm text-muted mt-2">{{ $package->description }}</p>
-            <div class="mt-4 pt-4 border-t border-line flex items-center justify-between">
-                <span class="text-muted text-sm">Total</span>
-                <span class="text-2xl font-extrabold text-rust">{{ $package->price_label }}</span>
+        <div class="bg-white rounded-2xl border border-line p-6 h-fit space-y-4">
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-wider text-rust">{{ $package->tier }}</p>
+                <h2 class="font-bold text-lg mt-1">{{ $package->name }}</h2>
+                <p class="text-sm text-muted mt-2">{{ $package->description }}</p>
+                <div class="mt-4 pt-4 border-t border-line flex items-center justify-between">
+                    <span class="text-muted text-sm">Total</span>
+                    <span class="text-2xl font-extrabold text-rust">{{ $package->price_label }}</span>
+                </div>
+                <p class="text-xs text-muted mt-2"><i class="fa-regular fa-clock"></i> {{ $package->duration }}</p>
             </div>
-            <p class="text-xs text-muted mt-2"><i class="fa-regular fa-clock"></i> {{ $package->duration }}</p>
+            @unless ($package->isFree())
+                <div class="pt-2 border-t border-line">
+                    @include('partials.bank-info')
+                </div>
+            @endunless
         </div>
     </div>
 @endsection

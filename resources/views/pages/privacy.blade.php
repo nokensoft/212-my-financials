@@ -4,12 +4,15 @@
 @section('meta_description', 'Kebijakan privasi MY Financials mengenai pengumpulan dan penggunaan data pengunjung situs.')
 
 @section('content')
-    <header class="pt-32 pb-8 px-6 bg-stone border-b border-line">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink">Kebijakan Privasi</h1>
-            <p class="text-muted mt-2 text-sm">Terakhir diperbarui: {{ now()->locale('id')->translatedFormat('d F Y') }}</p>
-        </div>
-    </header>
+    @include('partials.page-header', [
+        'title' => 'Kebijakan Privasi',
+        'subtitle' => 'Terakhir diperbarui: ' . now()->locale('id')->translatedFormat('d F Y'),
+        'width' => 'max-w-3xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Kebijakan Privasi'],
+        ],
+    ])
 
     <section class="py-12 px-6 bg-cream">
         <div class="max-w-3xl mx-auto article-content">

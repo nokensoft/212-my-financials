@@ -4,6 +4,28 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
+    /* ── WhatsApp floating chat panel ── */
+    Alpine.data('waChat', (number) => ({
+        open: false,
+        name: '',
+        phone: '',
+        message: '',
+        send() {
+            if (!this.name.trim() || !this.phone.trim() || !this.message.trim()) return;
+            const text =
+                'Halo MY Financials,\n\n' +
+                'Nama: ' + this.name.trim() + '\n' +
+                'No. WA: ' + this.phone.trim() + '\n\n' +
+                this.message.trim();
+            const url = 'https://wa.me/' + number + '?text=' + encodeURIComponent(text);
+            window.open(url, '_blank', 'noopener,noreferrer');
+            this.open = false;
+            this.name = '';
+            this.phone = '';
+            this.message = '';
+        },
+    }));
+
     Alpine.data('coverUploader', (existing = null) => ({
         preview: existing,
         dragging: false,
@@ -113,8 +135,6 @@ Alpine.start();
 (function () {
     'use strict';
 
-    const WA_NUMBER = '6282190902163'; // +62 821 9090 2163
-
     document.addEventListener('DOMContentLoaded', function () {
         /* Nav shadow + back-to-top visibility on scroll */
         const navbar = document.getElementById('navbar');
@@ -186,26 +206,5 @@ Alpine.start();
             sections.forEach(function (section) { observer.observe(section); });
         }
 
-        /* Contact form → WhatsApp */
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const val = function (id) {
-                    const el = document.getElementById(id);
-                    return el && el.value ? el.value.trim() : '';
-                };
-                const lines = [
-                    'Halo MY Financials, saya ingin menghubungi Anda.',
-                    '',
-                    'Nama: ' + (val('nama') || '-'),
-                    'Email: ' + (val('email') || '-'),
-                    'Kebutuhan: ' + (val('kebutuhan') || '-'),
-                    'Pesan: ' + (val('pesan') || '-'),
-                ];
-                const url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
-                window.open(url, '_blank', 'noopener');
-            });
-        }
     });
 })();

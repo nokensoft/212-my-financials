@@ -1,6 +1,20 @@
 @php($inputClass = 'w-full rounded-xl border border-line bg-white px-3 py-2 text-sm text-ink focus:ring-2 focus:ring-rust focus:border-rust outline-none')
-<form method="GET" action="{{ $action }}"
-    class="bg-cream border border-line rounded-2xl p-4 md:p-5 grid gap-3 md:grid-cols-12 md:items-end">
+@php($hasFilters = request()->hasAny(['q', 'category', 'sort', 'from', 'to']) && (request('q') || request('category') || request('from') || request('to') || (request('sort') && request('sort') !== 'latest')))
+<div x-data="{ open: {{ $hasFilters ? 'true' : 'false' }} }">
+    <div class="flex items-center justify-between gap-3">
+        <button type="button" @click="open = !open" :aria-expanded="open"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-line bg-cream text-sm font-semibold text-ink hover:border-rust hover:text-rust transition">
+            <i class="fa-solid fa-sliders text-xs"></i>
+            <span x-text="open ? 'Sembunyikan Pencarian & Filter' : 'Pencarian & Filter'"></span>
+            @if ($hasFilters)
+                <span class="w-2 h-2 rounded-full bg-rust" title="Filter aktif"></span>
+            @endif
+            <i class="fa-solid fa-chevron-down text-[.65rem] transition-transform" :class="open && 'rotate-180'"></i>
+        </button>
+    </div>
+
+<form x-show="open" x-cloak x-transition method="GET" action="{{ $action }}"
+    class="mt-3 bg-cream border border-line rounded-2xl p-4 md:p-5 grid gap-3 md:grid-cols-12 md:items-end">
     <div class="md:col-span-4">
         <label class="block text-xs font-semibold text-muted mb-1">Pencarian</label>
         <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari judul / isi..." class="{{ $inputClass }}">
@@ -42,3 +56,4 @@
         </a>
     </div>
 </form>
+</div>

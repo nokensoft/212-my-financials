@@ -38,41 +38,42 @@
 @endpush
 
 @section('content')
-    <section class="pt-32 pb-16 px-6 bg-cream" x-data="albumGallery({{ \Illuminate\Support\Js::from($photos) }})">
+    @include('partials.page-header', [
+        'title' => 'Detail Album',
+        'width' => 'max-w-5xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Album Kegiatan', 'url' => route('gallery.index')],
+            ['label' => 'Detail Album'],
+        ],
+    ])
+
+    <section class="py-12 px-6 bg-cream" x-data="albumGallery({{ \Illuminate\Support\Js::from($photos) }})">
         <div class="max-w-5xl mx-auto">
-            <nav class="text-xs text-muted mb-4">
-                <a href="{{ route('home') }}" class="hover:text-rust">Beranda</a> <span class="mx-1">/</span>
-                <a href="{{ route('gallery.index') }}" class="hover:text-rust">Galeri</a> <span class="mx-1">/</span>
-                <span class="text-ink">{{ \Illuminate\Support\Str::limit($album->title, 40) }}</span>
-            </nav>
-
-            <div class="flex flex-wrap gap-1.5 mb-4">
-                @foreach ($album->categories as $cat)
-                    <a href="{{ route('gallery.index', ['category' => $cat->slug]) }}"
-                        class="bg-rust/[0.08] text-rust text-xs font-bold px-2.5 py-1 rounded-full hover:bg-rust/15 transition">{{ $cat->name }}</a>
-                @endforeach
-            </div>
-
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-3 text-ink">{{ $album->title }}</h1>
-            <div class="flex items-center gap-4 text-sm text-muted mb-6">
-                <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> {{ $album->published_human }}</span>
-                <span class="flex items-center gap-1.5"><i class="fa-regular fa-images"></i> {{ $photos->count() }} Foto</span>
-                <span class="flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> {{ $album->views }}</span>
-            </div>
-
-            <div class="mb-8">
-                @include('partials.share', ['url' => route('gallery.show', $album->slug), 'title' => $album->title])
+            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink w-full mb-4">{{ $album->title }}</h1>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div class="flex flex-wrap gap-1.5">
+                    @foreach ($album->categories as $cat)
+                        <a href="{{ route('gallery.index', ['category' => $cat->slug]) }}"
+                            class="bg-rust/[0.08] text-rust text-xs font-bold px-2.5 py-1 rounded-full hover:bg-rust/15 transition">{{ $cat->name }}</a>
+                    @endforeach
+                </div>
+                <div class="flex items-center gap-4 text-sm text-muted">
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> {{ $album->published_human }}</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-images"></i> {{ $photos->count() }} Foto</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> {{ $album->views }}</span>
+                </div>
             </div>
 
             @if ($album->description)
-                <div class="article-content mb-8 max-w-3xl">{!! nl2br(e($album->description)) !!}</div>
+                <div class="article-content mb-8">{!! nl2br(e($album->description)) !!}</div>
             @endif
 
             @if ($photos->count())
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     @foreach ($album->photos as $photo)
                         <button type="button" @click="openAt({{ $loop->index }})"
-                            class="group aspect-square overflow-hidden rounded-xl border border-line bg-stone">
+                            class="group aspect-[4/5] overflow-hidden rounded-xl border border-line bg-stone">
                             <img src="{{ asset($photo->image_path) }}" alt="{{ $photo->caption ?: $album->title }}" loading="lazy"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </button>
@@ -83,8 +84,13 @@
             @endif
 
             <div class="mt-10 pt-6 border-t border-line">
+                <p class="text-sm font-bold uppercase tracking-[.05em] text-muted mb-3">Bagikan album ini</p>
+                @include('partials.share', ['url' => route('gallery.show', $album->slug), 'title' => $album->title])
+            </div>
+
+            <div class="mt-6">
                 <a href="{{ route('gallery.index') }}" class="inline-flex items-center gap-2 text-rust font-semibold hover:gap-3 transition-all">
-                    <i class="fa-solid fa-arrow-left text-xs"></i> Kembali ke Galeri
+                    <i class="fa-solid fa-arrow-left text-xs"></i> Kembali ke Album Kegiatan
                 </a>
             </div>
         </div>

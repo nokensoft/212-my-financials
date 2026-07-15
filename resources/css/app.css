@@ -11,6 +11,7 @@
     --font-serif: 'Lora', ui-serif, Georgia, serif;
 
     --breakpoint-navmenu: 900px;
+    --breakpoint-xs: 480px;
 
     /* Rust (terracotta) — warna tema MY Financials */
     --color-primary-50: #fdf4ef;
@@ -52,7 +53,7 @@
 
 @layer components {
     /* ── SECTION SHELL ── */
-    .section { @apply py-24 px-6 scroll-mt-16; }
+    .section { @apply py-16 sm:py-24 px-5 sm:px-6 scroll-mt-16; }
     .section-inner { @apply max-w-[1200px] mx-auto; }
     .section-label { @apply block text-center text-rust text-[.75rem] font-extrabold uppercase tracking-[.12em] mb-3; }
     .section-title { @apply font-serif text-center text-ink font-semibold leading-[1.2] mb-5 text-[clamp(2rem,4vw,2.8rem)]; }
@@ -64,6 +65,13 @@
     .nav-link { @apply px-3 py-1.5 rounded-md text-[.85rem] font-semibold uppercase tracking-[.02em] text-muted no-underline transition-colors; }
     .nav-link:hover { @apply text-rust bg-rust/[0.07]; }
     .nav-link.active { @apply text-rust bg-rust/10; }
+    button.nav-link { @apply inline-flex items-center bg-transparent border-0; }
+    .nav-dropdown { @apply relative; }
+    .nav-dropdown-panel { @apply absolute left-0 top-full pt-2 min-w-[210px] z-[110]; }
+    .nav-dropdown-panel { @apply flex flex-col gap-0.5 rounded-xl border border-line bg-cream p-2 shadow-[0_12px_40px_rgba(26,18,16,0.12)]; }
+    .nav-dropdown-link { @apply block px-3 py-2 rounded-lg text-[.85rem] font-semibold text-muted no-underline transition-colors; }
+    .nav-dropdown-link:hover { @apply text-rust bg-rust/[0.07]; }
+    .nav-dropdown-link.active { @apply text-rust bg-rust/10; }
     .nav-cta { @apply items-center gap-2 px-[18px] py-2.5 rounded-lg bg-rust text-white font-bold text-[.82rem] uppercase tracking-[.04em] no-underline transition-colors; }
     .nav-cta:hover { @apply bg-rust-dark; }
     .nav-title { @apply font-serif text-[1.2rem] navmenu:text-[1.4rem] font-semibold text-ink leading-none whitespace-nowrap; }
@@ -79,6 +87,11 @@
     .mobile-link + .mobile-link::before { content: "\2022"; @apply block text-center text-rust-light text-[.85rem] leading-none -mt-1 mb-1; }
     .mobile-cta { @apply flex items-center justify-center gap-2 mt-2 px-3 py-3 rounded-lg bg-rust text-white font-bold uppercase tracking-[.04em] no-underline transition-colors; }
     .mobile-cta:hover { @apply bg-rust-dark; }
+    .mobile-sub-toggle { @apply flex w-full items-center justify-center gap-2 px-3 py-3 rounded-lg text-[.95rem] font-semibold text-ink bg-transparent border-0 cursor-pointer transition-colors; }
+    .mobile-sub-toggle:hover { @apply bg-stone text-rust; }
+    .mobile-sub-panel { @apply flex flex-col gap-1 mt-1 mb-1 py-1 rounded-lg bg-stone/60; }
+    .mobile-sublink { @apply px-3 py-2.5 rounded-lg text-[.88rem] font-semibold text-muted no-underline text-center transition-colors; }
+    .mobile-sublink:hover, .mobile-sublink.active { @apply bg-cream text-rust; }
 
     /* ── BUTTONS ── */
     .btn-primary { @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-rust text-white font-bold text-[.95rem] no-underline transition; }
@@ -200,7 +213,7 @@
     #tim .section-title { @apply text-white; }
     .team-card { @apply rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center transition; }
     .team-card:hover { @apply -translate-y-1 border-rust-light/40 bg-white/[0.06]; }
-    .team-photo-wrap { @apply flex items-end justify-center h-[300px] mb-5 rounded-xl overflow-hidden; background: linear-gradient(160deg, rgba(232, 101, 31, .20) 0%, rgba(140, 50, 16, .10) 60%, rgba(255, 255, 255, .03) 100%); }
+    .team-photo-wrap { @apply flex items-end justify-center h-[220px] sm:h-[260px] mb-5 rounded-xl overflow-hidden; background: linear-gradient(160deg, rgba(232, 101, 31, .20) 0%, rgba(140, 50, 16, .10) 60%, rgba(255, 255, 255, .03) 100%); }
     .team-photo { @apply h-full w-auto object-contain object-bottom grayscale transition duration-500; }
     .team-card:hover .team-photo { @apply grayscale-0; }
     .team-name { @apply font-serif text-white text-[1.25rem] font-semibold leading-tight; }
@@ -208,13 +221,13 @@
     .team-desc { @apply text-white/70 text-[.9rem] leading-[1.7]; }
 
     /* ── FLOATING ACTIONS (WhatsApp + back to top) ── */
-    .fab-stack { @apply fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3; }
-    .wa-float { @apply flex items-center gap-3 max-w-[260px] bg-white rounded-full p-1.5 pr-4 no-underline shadow-[0_10px_30px_rgba(26,18,16,0.22)] transition; }
+    .fab-stack { @apply fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-[90] flex flex-col items-end gap-3; }
+    .wa-float { @apply flex items-center gap-3 bg-white rounded-full p-1.5 xs:pr-4 no-underline shadow-[0_10px_30px_rgba(26,18,16,0.22)] transition; }
     .wa-float:hover { @apply -translate-y-0.5; }
     .wa-avatar-wrap { @apply relative shrink-0; }
     .wa-avatar { @apply w-12 h-12 rounded-full object-cover object-top bg-stone; }
     .wa-badge { @apply absolute -bottom-0.5 -right-0.5 flex items-center justify-center w-5 h-5 rounded-full bg-[#25D366] text-white text-[.6rem] border-2 border-white; }
-    .wa-text { @apply text-ink text-[.76rem] font-semibold leading-tight; }
+    .wa-text { @apply hidden xs:inline text-ink text-[.76rem] font-semibold leading-tight; }
     .back-to-top { @apply flex items-center justify-center w-12 h-12 rounded-full bg-rust text-white text-lg border-0 cursor-pointer shadow-[0_10px_30px_rgba(26,18,16,0.22)] opacity-0 translate-y-2 pointer-events-none transition; }
     .back-to-top.show { @apply opacity-100 translate-y-0 pointer-events-auto; }
     .back-to-top:hover { @apply bg-rust-dark; }
@@ -251,25 +264,34 @@ button,
     cursor: pointer;
 }
 
-/* Topbar disclaimer (tahap pengembangan) + offset navigasi publik */
+/* Topbar (info kontak + member) + dev-notice + nav offset */
 .dev-notice-bar {
     height: 2.25rem;
 }
 
+.topbar {
+    height: 2.25rem;
+    top: 2.25rem; /* di bawah dev-notice */
+}
+
 .site-nav {
-    top: 2.25rem;
+    top: 4.5rem; /* dev-notice (2.25) + topbar (2.25) */
 }
 
 .site-mobile-menu {
-    top: 6.25rem;
+    top: 8.5rem; /* dev-notice + topbar + nav (4rem) */
 }
 
-.notice-dismissed .site-nav {
+.notice-dismissed .topbar {
     top: 0;
 }
 
+.notice-dismissed .site-nav {
+    top: 2.25rem; /* hanya topbar */
+}
+
 .notice-dismissed .site-mobile-menu {
-    top: 4rem;
+    top: 6.25rem; /* topbar (2.25) + nav (4rem) */
 }
 
 .notice-dismissed .dev-notice-bar {

@@ -21,7 +21,7 @@ class GalleryController extends Controller
         $this->applyContentFilters($query, $request, ['title', 'description']);
 
         /** @var LengthAwarePaginator $albums */
-        $albums = $query->paginate(9)->withQueryString();
+        $albums = $query->paginate(6)->withQueryString();
 
         return view('gallery.index', compact('albums', 'categories'));
     }

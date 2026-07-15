@@ -43,43 +43,127 @@
 <script type="application/ld+json">@json($ld, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)</script>
 @endpush
 
-@section('content')
-    <article class="pt-32 pb-16 px-6 bg-cream">
-        <div class="max-w-3xl mx-auto">
-            <nav class="text-xs text-muted mb-4">
-                <a href="{{ route('home') }}" class="hover:text-rust">Beranda</a> <span class="mx-1">/</span>
-                <a href="{{ route('blog.index') }}" class="hover:text-rust">Blog</a> <span class="mx-1">/</span>
-                <span class="text-ink">{{ \Illuminate\Support\Str::limit($post->title, 40) }}</span>
-            </nav>
+@push('head')
+<style>
+@media print {
+    /* Sembunyikan semua elemen website */
+    .dev-notice-bar, .topbar, #navbar, #mobileMenu,
+    .fab-stack, footer, main > header, .no-print { display: none !important; }
 
-            <div class="flex flex-wrap gap-1.5 mb-4">
-                @foreach ($post->categories as $cat)
-                    <a href="{{ route('blog.index', ['category' => $cat->slug]) }}"
-                        class="bg-rust/[0.08] text-rust text-xs font-bold px-2.5 py-1 rounded-full hover:bg-rust/15 transition">{{ $cat->name }}</a>
-                @endforeach
+    /* Bersihkan layout */
+    *, *::before, *::after { box-shadow: none !important; }
+    body { background: #fff !important; color: #1a1210 !important; font-size: 11pt; }
+    main, article { padding: 0 !important; background: transparent !important; }
+    .max-w-3xl { max-width: 100% !important; }
+    .bg-cream, .bg-stone { background: transparent !important; }
+
+    /* Elemen khusus cetak */
+    .print-only { display: block !important; }
+
+    /* Header brand cetak */
+    .print-brand {
+        display: flex !important;
+        align-items: center;
+        gap: 10pt;
+        padding-bottom: 10pt;
+        margin-bottom: 16pt;
+        border-bottom: 2pt solid #b84a1a;
+    }
+    .print-brand img { height: 32pt; width: auto; }
+    .print-brand-name { font-size: 14pt; font-weight: 700; color: #b84a1a; line-height: 1.2; }
+    .print-brand-url  { font-size: 8pt; color: #7a6a62; }
+
+    /* Judul & meta */
+    h1 { font-size: 22pt !important; line-height: 1.25 !important; margin: 0 0 8pt !important; page-break-after: avoid; }
+    .print-meta { font-size: 9pt; color: #7a6a62; margin-bottom: 14pt; }
+
+    /* Foto cover */
+    .print-cover { max-width: 100%; border-radius: 0 !important; margin-bottom: 16pt; page-break-inside: avoid; }
+
+    /* Isi artikel */
+    .article-content { font-size: 11pt; line-height: 1.75; }
+    .article-content img { max-width: 100%; page-break-inside: avoid; }
+    .article-content a { color: #b84a1a; text-decoration: underline; }
+
+    /* Catatan sumber di bawah */
+    .print-source {
+        display: block !important;
+        margin-top: 20pt;
+        padding-top: 8pt;
+        border-top: 1pt solid #e2d9d2;
+        font-size: 8pt;
+        color: #7a6a62;
+    }
+}
+</style>
+@endpush
+
+@section('content')
+    @include('partials.page-header', [
+        'title' => 'Detail Blog',
+        'width' => 'max-w-3xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Blog', 'url' => route('blog.index')],
+            ['label' => 'Detail Blog'],
+        ],
+    ])
+
+    <article class="py-12 px-6 bg-cream">
+        <div class="max-w-3xl mx-auto">
+
+            {{-- Brand header: hanya tampil saat cetak --}}
+            <div class="print-only hidden print-brand">
+                <img src="{{ asset('images/myf/logo-my-financials.png') }}" alt="MY Financials">
+                <div>
+                    <p class="print-brand-name">MY Financials</p>
+                    <p class="print-brand-url">www.myfinancials.id &mdash; {{ url()->current() }}</p>
+                </div>
             </div>
 
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-4 text-ink">{{ $post->title }}</h1>
-
-            <div class="flex items-center gap-4 text-sm text-muted mb-8">
-                <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> {{ $post->published_human }}</span>
-                <span class="flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> {{ $post->views }} kali dilihat</span>
+            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink w-full mb-4">{{ $post->title }}</h1>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-8 print-meta">
+                <div class="flex flex-wrap gap-1.5">
+                    @foreach ($post->categories as $cat)
+                        <a href="{{ route('blog.index', ['category' => $cat->slug]) }}"
+                            class="bg-rust/[0.08] text-rust text-xs font-bold px-2.5 py-1 rounded-full hover:bg-rust/15 transition no-print">{{ $cat->name }}</a>
+                        <span class="print-only hidden text-xs font-semibold">{{ $cat->name }}</span>
+                    @endforeach
+                </div>
+                <div class="flex items-center gap-4 text-sm text-muted">
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> {{ $post->published_human }}</span>
+                    <span class="flex items-center gap-1.5 no-print"><i class="fa-regular fa-eye"></i> {{ $post->views }} kali dilihat</span>
+                </div>
             </div>
 
             @if ($post->cover_image)
                 <img src="{{ asset($post->cover_image) }}" alt="{{ $post->title }}"
-                    class="w-full rounded-2xl shadow-lg mb-8 object-cover">
+                    class="print-cover w-full aspect-[4/3] rounded-2xl shadow-lg mb-8 object-cover">
             @endif
 
             <div class="article-content">
                 {!! $post->body !!}
             </div>
 
-            <div class="mt-8 pt-6 border-t border-line">
-                @include('partials.share', ['url' => route('blog.show', $post->slug), 'title' => $post->title])
+            {{-- Catatan sumber: hanya saat cetak --}}
+            <span class="print-source hidden">
+                Sumber: {{ url()->current() }} &mdash; Dicetak {{ now()->locale('id')->translatedFormat('d F Y') }}
+            </span>
+
+            <div class="no-print mt-10 pt-6 border-t border-line">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <p class="text-sm font-bold uppercase tracking-[.05em] text-muted mb-3">Bagikan artikel ini</p>
+                        @include('partials.share', ['url' => route('blog.show', $post->slug), 'title' => $post->title])
+                    </div>
+                    <button onclick="window.print()"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-line bg-white text-sm font-semibold text-muted hover:text-rust hover:border-rust transition self-end shrink-0">
+                        <i class="fa-solid fa-print"></i> Cetak
+                    </button>
+                </div>
             </div>
 
-            <div class="mt-6">
+            <div class="no-print mt-6">
                 <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 text-rust font-semibold hover:gap-3 transition-all">
                     <i class="fa-solid fa-arrow-left text-xs"></i> Kembali ke Blog
                 </a>
@@ -87,7 +171,7 @@
         </div>
 
         @if ($related->count())
-            <div class="max-w-7xl mx-auto mt-16">
+            <div class="no-print max-w-7xl mx-auto mt-16">
                 <h2 class="font-serif text-2xl font-semibold mb-6 text-ink">Artikel Terkait</h2>
                 <div class="grid sm:grid-cols-3 gap-6">
                     @foreach ($related as $rel)

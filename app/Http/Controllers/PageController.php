@@ -18,6 +18,36 @@ class PageController extends Controller
         return view('pages.faq');
     }
 
+    public function contact(): View
+    {
+        return view('pages.contact');
+    }
+
+    public function aboutWho(): View
+    {
+        return view('pages.about.who');
+    }
+
+    public function aboutJourney(): View
+    {
+        return view('pages.about.journey');
+    }
+
+    public function aboutValues(): View
+    {
+        return view('pages.about.values');
+    }
+
+    public function aboutVision(): View
+    {
+        return view('pages.about.vision');
+    }
+
+    public function aboutServices(): View
+    {
+        return view('pages.about.services');
+    }
+
     public function sitemap(): View
     {
         $posts = Post::published()->latest('published_at')->get(['title', 'slug', 'published_at']);

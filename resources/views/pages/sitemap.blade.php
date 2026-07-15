@@ -4,12 +4,15 @@
 @section('meta_description', 'Peta situs MY Financials — daftar seluruh halaman, artikel, dan album.')
 
 @section('content')
-    <header class="pt-32 pb-8 px-6 bg-stone border-b border-line">
-        <div class="max-w-5xl mx-auto">
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink">Peta Situs</h1>
-            <p class="text-muted mt-2">Daftar seluruh halaman utama, artikel, dan album di situs ini.</p>
-        </div>
-    </header>
+    @include('partials.page-header', [
+        'title' => 'Peta Situs',
+        'subtitle' => 'Daftar seluruh halaman utama, artikel, dan album di situs ini.',
+        'width' => 'max-w-5xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Peta Situs'],
+        ],
+    ])
 
     <section class="py-12 px-6 bg-cream">
         <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">

@@ -54,12 +54,14 @@
 <body class="font-sans bg-cream text-ink antialiased overflow-x-hidden">
 
     @include('partials.dev-notice')
+    @include('partials.topbar')
     @include('partials.nav')
 
     <main>
         @yield('content')
     </main>
 
+    @include('partials.fab')
     @include('partials.footer')
 
 </body>

@@ -4,15 +4,15 @@
 @section('meta_description', 'Dokumentasi kegiatan pelatihan, konsultasi, dan pendampingan keuangan UMKM oleh MY Financials di Tanah Papua.')
 
 @section('content')
-    <header class="pt-32 pb-10 px-6 bg-stone border-b border-line">
-        <div class="max-w-7xl mx-auto">
-            <nav class="text-xs text-muted mb-3">
-                <a href="{{ route('home') }}" class="hover:text-rust">Beranda</a> <span class="mx-1">/</span> <span class="text-ink">Galeri</span>
-            </nav>
-            <h1 class="font-serif text-3xl md:text-4xl font-semibold text-ink">Galeri &amp; Album</h1>
-            <p class="text-muted mt-2 max-w-2xl">Dokumentasi kegiatan pelatihan, pendampingan, dan kolaborasi MY Financials bersama UMKM di Tanah Papua.</p>
-        </div>
-    </header>
+    @include('partials.page-header', [
+        'title' => 'Galeri & Album',
+        'subtitle' => 'Dokumentasi kegiatan pelatihan, pendampingan, dan kolaborasi MY Financials bersama UMKM di Tanah Papua.',
+        'width' => 'max-w-7xl',
+        'crumbs' => [
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Album Kegiatan'],
+        ],
+    ])
 
     <section class="py-10 px-6 bg-cream">
         <div class="max-w-7xl mx-auto">
