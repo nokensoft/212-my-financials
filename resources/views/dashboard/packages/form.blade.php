@@ -28,6 +28,7 @@
             <div>
                 <label class="block text-sm font-semibold mb-1.5">Harga (Rp)</label>
                 <input type="number" name="price" value="{{ old('price', $package->price ?? 0) }}" class="{{ $input }}" min="0" required>
+                <p class="text-xs text-muted mt-1">Isi <b>0</b> untuk paket gratis &mdash; member tidak perlu unggah bukti transfer &amp; pesanan langsung dikonfirmasi.</p>
             </div>
             <div>
                 <label class="block text-sm font-semibold mb-1.5">Durasi</label>

@@ -32,7 +32,7 @@
                                     @endif
                                 </td>
                                 <td class="px-5 py-3 hidden sm:table-cell text-muted">{{ $o->package_name }}</td>
-                                <td class="px-5 py-3 font-bold">Rp {{ number_format($o->amount, 0, ',', '.') }}</td>
+                                <td class="px-5 py-3 font-bold">{{ $o->isFree() ? 'Gratis' : 'Rp '.number_format($o->amount, 0, ',', '.') }}</td>
                                 <td class="px-5 py-3"><span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $o->statusClass() }}">{{ $o->statusLabel() }}</span></td>
                                 <td class="px-5 py-3">
                                     <div class="flex items-center justify-end gap-1">

@@ -33,6 +33,14 @@ class ServicePackage extends Model
         return $this->price > 0 ? 'Rp '.number_format($this->price, 0, ',', '.') : 'Gratis';
     }
 
+    /**
+     * A package is free when its price is zero (no payment/proof needed to order).
+     */
+    public function isFree(): bool
+    {
+        return (int) $this->price <= 0;
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

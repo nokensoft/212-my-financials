@@ -54,6 +54,14 @@ class Order extends Model
         return $this->status === self::STATUS_LUNAS;
     }
 
+    /**
+     * A free order has a zero amount and needs no payment or transfer proof.
+     */
+    public function isFree(): bool
+    {
+        return (int) $this->amount <= 0;
+    }
+
     public function hasPaymentProof(): bool
     {
         return filled($this->payment_proof);

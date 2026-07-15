@@ -10,17 +10,25 @@
     <div class="grid lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 bg-white rounded-2xl border border-line p-6">
             <h1 class="font-bold text-lg mb-4">Konfirmasi Pemesanan</h1>
-            <form method="POST" action="{{ route('member.orders.store', $package) }}" enctype="multipart/form-data" class="space-y-5">
-                @csrf
-                <div>
-                    <label class="block text-sm font-semibold mb-1.5">Metode Pembayaran</label>
-                    <select name="payment_method" class="{{ $input }}">
-                        <option value="Transfer BCA">Transfer BCA</option>
-                        <option value="Transfer Mandiri">Transfer Mandiri</option>
-                        <option value="QRIS">QRIS</option>
-                        <option value="Tunai">Tunai</option>
-                    </select>
+            @if ($package->isFree())
+                <div class="mb-5 flex items-start gap-3 rounded-xl bg-primary-50 border border-primary-100 text-primary-700 px-4 py-3">
+                    <i class="fa-solid fa-gift mt-0.5"></i>
+                    <p class="text-sm font-medium">Paket ini <b>gratis</b>. Anda tidak perlu melakukan pembayaran maupun mengunggah bukti transfer &mdash; pesanan langsung dikonfirmasi.</p>
                 </div>
+            @endif
+            <form method="POST" action="{{ route('member.orders.store', $package) }}" @unless ($package->isFree()) enctype="multipart/form-data" @endunless class="space-y-5">
+                @csrf
+                @unless ($package->isFree())
+                    <div>
+                        <label class="block text-sm font-semibold mb-1.5">Metode Pembayaran</label>
+                        <select name="payment_method" class="{{ $input }}">
+                            <option value="Transfer BCA">Transfer BCA</option>
+                            <option value="Transfer Mandiri">Transfer Mandiri</option>
+                            <option value="QRIS">QRIS</option>
+                            <option value="Tunai">Tunai</option>
+                        </select>
+                    </div>
+                @endunless
                 <div>
                     <label class="block text-sm font-semibold mb-1.5">Jadwal Diinginkan <span class="text-muted font-normal">(opsional)</span></label>
                     <input type="datetime-local" name="scheduled_at" value="{{ old('scheduled_at') }}" class="{{ $input }}">
@@ -29,12 +37,14 @@
                     <label class="block text-sm font-semibold mb-1.5">Catatan <span class="text-muted font-normal">(opsional)</span></label>
                     <textarea name="notes" rows="3" class="{{ $input }}" placeholder="Ceritakan kebutuhan Anda...">{{ old('notes') }}</textarea>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1.5">Bukti Transfer <span class="text-muted font-normal">(opsional, bisa diunggah nanti)</span></label>
-                    @include('partials.proof-field')
-                </div>
+                @unless ($package->isFree())
+                    <div>
+                        <label class="block text-sm font-semibold mb-1.5">Bukti Transfer <span class="text-muted font-normal">(opsional, bisa diunggah nanti)</span></label>
+                        @include('partials.proof-field')
+                    </div>
+                @endunless
                 <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rust text-white text-sm font-bold hover:bg-rust-dark transition">
-                    <i class="fa-solid fa-check"></i> Buat Pesanan
+                    <i class="fa-solid {{ $package->isFree() ? 'fa-gift' : 'fa-check' }}"></i> {{ $package->isFree() ? 'Ambil Paket Gratis' : 'Buat Pesanan' }}
                 </button>
             </form>
         </div>

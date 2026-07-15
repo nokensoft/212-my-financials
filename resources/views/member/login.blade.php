@@ -43,7 +43,7 @@
             <form method="POST" action="{{ route('member.login') }}" class="space-y-5">
                 @csrf
                 <div>
-                    <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP</label>
+                    <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP (WA)</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted"><i class="fa-solid fa-phone"></i></span>
                         <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required autofocus placeholder="08xx xxxx xxxx"
@@ -52,10 +52,14 @@
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-semibold mb-1.5">Kata Sandi</label>
-                    <div class="relative">
+                    <div class="relative" x-data="{ show: false }">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted"><i class="fa-solid fa-lock"></i></span>
-                        <input id="password" type="password" name="password" required placeholder="••••••••"
-                            class="w-full rounded-xl border border-line bg-white pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                        <input id="password" type="password" :type="show ? 'text' : 'password'" name="password" required placeholder="••••••••"
+                            class="w-full rounded-xl border border-line bg-white pl-10 pr-10 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                        <button type="button" @click="show = !show" :aria-label="show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-rust outline-none">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
                     </div>
                 </div>
                 <label class="flex items-center gap-2 text-sm text-muted">
@@ -64,7 +68,7 @@
                 <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">Masuk</button>
             </form>
 
-            <div class="flex items-center gap-3 my-5">
+            {{-- <div class="flex items-center gap-3 my-5">
                 <span class="h-px flex-1 bg-line"></span>
                 <span class="text-xs text-muted font-semibold uppercase tracking-wide">atau</span>
                 <span class="h-px flex-1 bg-line"></span>
@@ -73,7 +77,7 @@
             <a href="{{ route('member.google') }}"
                 class="w-full flex items-center justify-center gap-3 border border-line bg-white text-ink font-semibold py-3 rounded-xl hover:bg-stone transition">
                 <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"> Masuk dengan Google
-            </a>
+            </a> --}}
         </div>
 
         <div class="text-center mt-6 text-sm text-muted space-y-2">

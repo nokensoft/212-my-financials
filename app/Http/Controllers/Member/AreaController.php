@@ -60,6 +60,30 @@ class AreaController extends Controller
     {
         abort_unless($package->is_active, 404);
 
+        // Paket gratis: tanpa pembayaran & tanpa bukti transfer, langsung dikonfirmasi.
+        if ($package->isFree()) {
+            $data = $request->validate([
+                'scheduled_at' => ['nullable', 'date'],
+                'notes' => ['nullable', 'string', 'max:1000'],
+            ]);
+
+            $order = $this->member()->orders()->create([
+                'invoice_no' => Order::generateInvoiceNo(),
+                'service_package_id' => $package->id,
+                'package_name' => $package->name,
+                'amount' => 0,
+                'payment_method' => null,
+                'payment_proof' => null,
+                'status' => Order::STATUS_TERVERIFIKASI,
+                'scheduled_at' => $data['scheduled_at'] ?? null,
+                'notes' => $data['notes'] ?? null,
+                'verified_at' => now(),
+            ]);
+
+            return redirect()->route('member.orders.show', $order)
+                ->with('status', 'Pesanan paket gratis berhasil dibuat & langsung dikonfirmasi. Tidak perlu bukti transfer.');
+        }
+
         $data = $request->validate([
             'payment_method' => ['nullable', 'string', 'max:100'],
             'scheduled_at' => ['nullable', 'date'],
@@ -90,6 +114,9 @@ class AreaController extends Controller
     public function uploadProof(Request $request, Order $order): RedirectResponse
     {
         $this->authorizeOrder($order);
+
+        // Paket gratis tidak memerlukan bukti transfer.
+        abort_if($order->isFree(), 403);
 
         abort_unless(in_array($order->status, [Order::STATUS_BARU, Order::STATUS_MENUNGGU], true), 403);
 

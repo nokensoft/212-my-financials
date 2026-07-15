@@ -40,8 +40,14 @@
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-semibold mb-1.5">Kata Sandi</label>
-                    <input id="password" type="password" name="password" required
-                        class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                    <div class="relative" x-data="{ show: false }">
+                        <input id="password" type="password" :type="show ? 'text' : 'password'" name="password" required
+                            class="w-full rounded-xl border border-line bg-white pl-4 pr-11 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                        <button type="button" @click="show = !show" :aria-label="show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-rust outline-none">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                 </div>
                 <label class="flex items-center gap-2 text-sm text-muted">
                     <input type="checkbox" name="remember" class="rounded border-line text-rust focus:ring-rust">

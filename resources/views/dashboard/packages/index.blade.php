@@ -22,8 +22,11 @@
                     <p class="text-sm text-muted mt-3 flex-1">{{ $p->description }}</p>
                     <div class="mt-4 flex items-end justify-between">
                         <div>
-                            <p class="text-2xl font-extrabold text-ink">{{ $p->price_label }}</p>
-                            <p class="text-xs text-muted"><i class="fa-regular fa-clock"></i> {{ $p->duration }} · {{ $p->orders_count }} pesanan</p>
+                            <p class="text-2xl font-extrabold {{ $p->isFree() ? 'text-primary-700' : 'text-ink' }}">{{ $p->price_label }}</p>
+                            @if ($p->isFree())
+                                <span class="inline-flex items-center gap-1 mt-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-primary-100 text-primary-700"><i class="fa-solid fa-gift"></i> Tanpa bukti transfer</span>
+                            @endif
+                            <p class="text-xs text-muted mt-1"><i class="fa-regular fa-clock"></i> {{ $p->duration }} · {{ $p->orders_count }} pesanan</p>
                         </div>
                         <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $p->is_active ? 'bg-primary-100 text-primary-700' : 'bg-stone text-muted' }}">{{ $p->is_active ? 'Aktif' : 'Nonaktif' }}</span>
                     </div>

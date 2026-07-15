@@ -20,7 +20,7 @@
                         <p class="text-xs text-muted"><i class="fa-regular fa-clock"></i> {{ $p->duration }}</p>
                     </div>
                     <a href="{{ route('member.orders.create', $p) }}" class="mt-4 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rust text-white text-sm font-semibold hover:bg-rust-dark transition">
-                        <i class="fa-solid fa-cart-shopping"></i> Pesan Paket
+                        <i class="fa-solid {{ $p->isFree() ? 'fa-gift' : 'fa-cart-shopping' }}"></i> {{ $p->isFree() ? 'Ambil Gratis' : 'Pesan Paket' }}
                     </a>
                 </div>
             @endforeach

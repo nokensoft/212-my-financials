@@ -18,6 +18,7 @@
     $subtotal = $order->amount;
     $tax = 0;
     $total = $subtotal + $tax;
+    $isFree = $order->isFree();
     $paid = $order->isPaid();
 @endphp
 
@@ -44,7 +45,7 @@
                 <div class="text-right">
                     <h1 class="font-serif text-2xl font-semibold">INVOICE</h1>
                     <p class="text-sm font-mono text-muted mt-1">{{ $order->invoice_no }}</p>
-                    <span class="inline-block mt-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ $paid ? 'bg-primary-100 text-primary-700' : 'bg-amber-100 text-amber-700' }}">{{ $paid ? 'LUNAS' : 'BELUM LUNAS' }}</span>
+                    <span class="inline-block mt-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full {{ ($isFree || $paid) ? 'bg-primary-100 text-primary-700' : 'bg-amber-100 text-amber-700' }}">{{ $isFree ? 'GRATIS' : ($paid ? 'LUNAS' : 'BELUM LUNAS') }}</span>
                 </div>
             </div>
 
@@ -95,7 +96,11 @@
             <div class="mt-8 pt-6 border-t border-line grid sm:grid-cols-2 gap-6 text-sm">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wide text-muted mb-1">Pembayaran</p>
-                    <p class="text-muted leading-relaxed">Transfer ke <span class="font-semibold text-ink">BCA 1234567890</span> a.n. MY Financials. Konfirmasi via WhatsApp +62 821 9090 2163.</p>
+                    @if ($isFree)
+                        <p class="text-muted leading-relaxed">Paket ini <span class="font-semibold text-ink">gratis</span> &mdash; tidak ada pembayaran yang perlu dilakukan.</p>
+                    @else
+                        <p class="text-muted leading-relaxed">Transfer ke <span class="font-semibold text-ink">BCA 1234567890</span> a.n. MY Financials. Konfirmasi via WhatsApp +62 821 9090 2163.</p>
+                    @endif
                 </div>
                 <div class="sm:text-right">
                     <p class="text-[11px] font-bold uppercase tracking-wide text-muted mb-1">Hormat kami</p>

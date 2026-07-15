@@ -44,19 +44,31 @@
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <div>
-                    <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP</label>
+                    <label for="phone" class="block text-sm font-semibold mb-1.5">Nomor HP (WA)</label>
                     <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required placeholder="08xx xxxx xxxx"
                         class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-semibold mb-1.5">Kata Sandi</label>
-                    <input id="password" type="password" name="password" required placeholder="Minimal 6 karakter"
-                        class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                    <div class="relative" x-data="{ show: false }">
+                        <input id="password" type="password" :type="show ? 'text' : 'password'" name="password" required placeholder="Minimal 6 karakter"
+                            class="w-full rounded-xl border border-line bg-white pl-4 pr-11 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                        <button type="button" @click="show = !show" :aria-label="show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-rust outline-none">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                 </div>
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold mb-1.5">Ulangi Kata Sandi</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" required placeholder="••••••••"
-                        class="w-full rounded-xl border border-line bg-white px-4 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                    <div class="relative" x-data="{ show: false }">
+                        <input id="password_confirmation" type="password" :type="show ? 'text' : 'password'" name="password_confirmation" required placeholder="••••••••"
+                            class="w-full rounded-xl border border-line bg-white pl-4 pr-11 py-2.5 focus:ring-2 focus:ring-rust focus:border-rust outline-none">
+                        <button type="button" @click="show = !show" :aria-label="show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-rust outline-none">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                 </div>
                 <label class="flex items-start gap-2 text-sm text-muted">
                     <input type="checkbox" required class="mt-1 rounded border-line text-rust focus:ring-rust">
@@ -65,7 +77,7 @@
                 <button type="submit" class="w-full bg-rust text-white font-bold py-3 rounded-xl hover:bg-rust-dark transition shadow-lg shadow-rust/20">Daftar</button>
             </form>
 
-            <div class="flex items-center gap-3 my-5">
+            {{-- <div class="flex items-center gap-3 my-5">
                 <span class="h-px flex-1 bg-line"></span>
                 <span class="text-xs text-muted font-semibold uppercase tracking-wide">atau</span>
                 <span class="h-px flex-1 bg-line"></span>
@@ -74,7 +86,7 @@
             <a href="{{ route('member.google') }}"
                 class="w-full flex items-center justify-center gap-3 border border-line bg-white text-ink font-semibold py-3 rounded-xl hover:bg-stone transition">
                 <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"> Daftar dengan Google
-            </a>
+            </a> --}}
         </div>
 
         <div class="text-center mt-6 text-sm text-muted space-y-2">
