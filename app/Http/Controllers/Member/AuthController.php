@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Laravel\Socialite\Facades\Socialite;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -80,7 +82,49 @@ class AuthController extends Controller
 
     public function google(): RedirectResponse
     {
-        // Simulasi: login Google belum dikonfigurasi (butuh kredensial OAuth / Socialite).
-        return back()->with('info', 'Login dengan Google belum dikonfigurasi. Silakan gunakan nomor HP & kata sandi.');
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback(Request $request): RedirectResponse
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (Throwable) {
+            return redirect()->route('member.login')
+                ->with('info', 'Autentikasi Google gagal atau dibatalkan. Silakan coba lagi.');
+        }
+
+        // Cari member berdasarkan google_id
+        $member = Member::where('google_id', $googleUser->getId())->first();
+
+        if (! $member) {
+            // Cari berdasarkan email (akun lama yang belum link Google)
+            $member = Member::where('email', $googleUser->getEmail())->first();
+
+            if ($member) {
+                // Tautkan google_id ke akun yang sudah ada
+                $member->update([
+                    'google_id' => $googleUser->getId(),
+                    'avatar'    => $member->avatar ?? $googleUser->getAvatar(),
+                ]);
+            } else {
+                // Daftar otomatis sebagai member baru
+                $member = Member::create([
+                    'name'      => $googleUser->getName(),
+                    'email'     => $googleUser->getEmail(),
+                    'google_id' => $googleUser->getId(),
+                    'avatar'    => $googleUser->getAvatar(),
+                    'status'    => Member::STATUS_PENDING,
+                ]);
+            }
+        }
+
+        Auth::guard('member')->login($member, remember: true);
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('member.dashboard'))
+            ->with('status', $member->wasRecentlyCreated
+                ? 'Pendaftaran via Google berhasil! Akun Anda menunggu verifikasi admin.'
+                : 'Selamat datang kembali, '.$member->name.'!');
     }
 }

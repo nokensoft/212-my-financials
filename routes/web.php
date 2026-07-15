@@ -46,6 +46,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::post('daftar', [MemberAuthController::class, 'register']);
     });
     Route::get('google', [MemberAuthController::class, 'google'])->name('google');
+    Route::get('google/callback', [MemberAuthController::class, 'googleCallback'])->name('google.callback');
 
     Route::middleware('auth:member')->group(function () {
         Route::post('logout', [MemberAuthController::class, 'logout'])->name('logout');

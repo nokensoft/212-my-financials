@@ -313,6 +313,7 @@
                         <div>
                             <h4 class="text-white font-semibold text-sm uppercase tracking-wider opacity-80">{{ $paket->tier }}</h4>
                             <p class="text-white text-lg font-medium mt-1">{{ $paket->name }}</p>
+                            <p class="text-white text-base mt-1">{{ $paket->desc }}</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
