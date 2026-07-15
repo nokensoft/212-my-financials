@@ -6,7 +6,7 @@
 @section('content')
     @include('partials.page-header', [
         'title' => 'Hubungi Kami',
-        'subtitle' => 'Mari berkolaborasi mendampingi perjalanan UMKM Anda.',
+        'subtitle' => 'Mari berkolaborasi mendampingi perjalanan keuangan pribadi atau usaha Anda.',
         'crumbs' => [
             ['label' => 'Beranda', 'url' => route('home')],
             ['label' => 'Hubungi Kami'],
@@ -17,13 +17,11 @@
     <section id="kontak" class="section bg-stone">
         <div class="section-inner grid grid-cols-1 navmenu:grid-cols-2 gap-10 navmenu:gap-16 items-start">
             <div>
-                <span class="section-label !text-left">Hubungi Kami</span>
-                <h2 class="section-title !text-left">Mari Berkolaborasi</h2>
-                <div class="section-divider !mx-0"></div>
                 <p class="text-muted text-[.95rem] leading-[1.75] mb-8">
                     Ingin meningkatkan literasi keuangan bisnis Anda atau mengundang MY Financials sebagai mitra pelatihan?
                     Kami siap hadir untuk mendampingi perjalanan UMKM Anda.
                 </p>
+                <div class="section-divider !mx-0"></div>
                 <div class="flex flex-col gap-5">
                     <div class="kontak-item">
                         <div class="kontak-icon"><i class="fa-solid fa-location-dot"></i></div>
@@ -48,19 +46,22 @@
                     <i class="fa-solid fa-location-dot text-rust text-sm"></i>
                     <span class="text-[.82rem] font-bold uppercase tracking-[.06em] text-muted">Lokasi Kami — Sentani, Papua</span>
                 </div>
-                <iframe
-                    src="https://maps.google.com/maps?q=Sentani+Jayapura+Papua+Indonesia&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                    width="100%"
-                    height="420"
-                    style="border:0; display:block;"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6331497.008581948!2d134.57542910136377!3d-2.6970823135789623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1784123331254!5m2!1sid!2sid" 
+                    width="100%" 
+                    height="430" 
+                    style="border:0; display:block;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="strict-origin-when-cross-origin"
                     title="Lokasi MY Financials — Sentani, Kab. Jayapura, Papua"
-                ></iframe>
+                    ></iframe>
+
                 <div class="bg-cream px-5 py-3 flex items-center gap-2">
                     <i class="fa-solid fa-map-pin text-rust text-xs"></i>
-                    <span class="text-[.8rem] text-muted">Sentani, Kab. Jayapura — Papua, Indonesia</span>
+                    {{-- <span class="text-[.8rem] text-muted">Sentani, Kab. Jayapura — Papua, Indonesia</span> --}}
+                    <span class="text-[.8rem] text-muted">Titik koordinat akan dibaharui</span>
                 </div>
             </div>
         </div>
