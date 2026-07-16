@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Galeri & Album')
-@section('meta_description', 'Dokumentasi kegiatan pelatihan, konsultasi, dan pendampingan keuangan UMKM oleh MY Financials di Tanah Papua.')
+@section('meta_description', 'Dokumentasi kegiatan pelatihan, konsultasi, dan pendampingan keuangan oleh MY Financials di Tanah Papua.')
 
 @section('content')
     @include('partials.page-header', [

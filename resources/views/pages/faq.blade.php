@@ -15,7 +15,7 @@
 @endphp
 
 @section('page_title', 'FAQ')
-@section('meta_description', 'Pertanyaan yang sering diajukan seputar layanan keuangan MY Financials untuk UMKM di Papua.')
+@section('meta_description', 'Pertanyaan yang sering diajukan seputar layanan keuangan MY Financials bagi pelaku usaha, organisasi, dan individu di Papua.')
 
 @push('head')
 <script type="application/ld+json">@json($faqLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)</script>

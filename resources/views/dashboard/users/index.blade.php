@@ -13,6 +13,7 @@
             <table class="w-full text-sm">
                 <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 text-left">
                     <tr>
+                        <th class="px-5 py-3 font-semibold w-12">No</th>
                         <th class="px-5 py-3 font-semibold">Nama</th>
                         <th class="px-5 py-3 font-semibold hidden sm:table-cell">Email</th>
                         <th class="px-5 py-3 font-semibold">Peran</th>
@@ -22,6 +23,7 @@
                 <tbody class="divide-y divide-slate-100 dark:divide-white/10">
                     @foreach ($users as $user)
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/5">
+                            <td class="px-5 py-3 text-slate-500">{{ $users->firstItem() + $loop->index }}</td>
                             <td class="px-5 py-3 font-semibold">
                                 {{ $user->name }}
                                 @if ($user->id === auth()->id())

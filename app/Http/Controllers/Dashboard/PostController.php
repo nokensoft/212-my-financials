@@ -10,6 +10,7 @@ use App\Support\Slug;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -99,7 +100,6 @@ class PostController extends Controller
     {
         return $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['nullable', 'string'],
             'status' => ['required', 'in:draft,published'],
@@ -108,8 +108,6 @@ class PostController extends Controller
             'remove_cover' => ['nullable', 'boolean'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['integer', 'exists:categories,id'],
-            'meta_title' => ['nullable', 'string', 'max:255'],
-            'meta_description' => ['nullable', 'string', 'max:500'],
         ]);
     }
 
@@ -119,17 +117,13 @@ class PostController extends Controller
     protected function persist(Post $post, array $data, Request $request): void
     {
         $post->title = $data['title'];
-
-        if (! $post->exists || filled($data['slug'] ?? null) || ! $post->slug) {
-            $source = filled($data['slug'] ?? null) ? $data['slug'] : ($post->slug ?: $data['title']);
-            $post->slug = Slug::unique(Post::class, $source, $post->id);
-        }
+        $post->slug = Slug::unique(Post::class, $data['title'], $post->id);
 
         $post->excerpt = $data['excerpt'] ?? null;
         $post->body = $data['body'] ?? null;
         $post->status = $data['status'];
-        $post->meta_title = $data['meta_title'] ?? null;
-        $post->meta_description = $data['meta_description'] ?? null;
+        $post->meta_title = Str::limit($data['title'], 60, '');
+        $post->meta_description = $this->autoMetaDescription($data['excerpt'] ?? null, $data['body'] ?? null);
 
         $published = filled($data['published_at'] ?? null) ? Carbon::parse($data['published_at']) : null;
         if ($data['status'] === 'published') {
@@ -150,5 +144,16 @@ class PostController extends Controller
 
         $post->save();
         $post->categories()->sync($data['categories'] ?? []);
+    }
+
+    /**
+     * Build a meta description from the excerpt, falling back to the body.
+     */
+    protected function autoMetaDescription(?string $excerpt, ?string $body): ?string
+    {
+        $source = filled($excerpt) ? $excerpt : strip_tags((string) $body);
+        $source = trim(preg_replace('/\s+/', ' ', $source));
+
+        return $source !== '' ? Str::limit($source, 157) : null;
     }
 }

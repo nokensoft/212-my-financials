@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Perjalanan Kami')
-@section('meta_description', 'Perjalanan MY Financials sejak 2023 hingga sekarang — dari perencanaan keuangan pribadi hingga pemberdayaan UMKM & integrasi sistem digital di Papua.')
+@section('meta_description', 'Perjalanan MY Financials sejak 2023 hingga sekarang — dari perencanaan keuangan pribadi hingga pemberdayaan pelaku usaha & integrasi sistem digital di Papua.')
 
 @section('content')
     @include('partials.page-header', [

@@ -2,8 +2,10 @@
 <div class="topbar fixed inset-x-0 z-[55] bg-ink text-white/60 flex items-center">
     <div class="max-w-[1200px] mx-auto w-full flex items-center justify-between px-6 max-[480px]:px-4 h-full">
 
-        {{-- Kiri: Telepon + Instagram --}}
+        {{-- Kiri: Tagline + Telepon + Instagram --}}
         <div class="flex items-center gap-4 text-[.7rem] font-semibold">
+            <span class="hidden navmenu:inline whitespace-nowrap text-white/80">Jasa Perencanaan Keuangan: Konsultasi, Pelatihan &amp; Pendampingan</span>
+            <span class="hidden navmenu:inline text-white/20">|</span>
             <a href="tel:+6282190902163"
                class="flex items-center gap-1.5 hover:text-white transition no-underline">
                 <i class="fa-solid fa-phone text-[.6rem]"></i>

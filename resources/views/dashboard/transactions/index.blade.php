@@ -28,6 +28,7 @@
             <table class="w-full text-sm">
                 <thead class="bg-stone text-muted text-left">
                     <tr>
+                        <th class="px-5 py-3 font-semibold w-12">No</th>
                         <th class="px-5 py-3 font-semibold">Tanggal</th>
                         <th class="px-5 py-3 font-semibold">Keterangan</th>
                         <th class="px-5 py-3 font-semibold hidden sm:table-cell">Kategori</th>
@@ -38,6 +39,7 @@
                 <tbody class="divide-y divide-line">
                     @forelse ($transactions as $t)
                         <tr class="hover:bg-stone/60">
+                            <td class="px-5 py-3 text-muted">{{ $transactions->firstItem() + $loop->index }}</td>
                             <td class="px-5 py-3 text-muted whitespace-nowrap">{{ $t->date->locale('id')->translatedFormat('d M Y') }}</td>
                             <td class="px-5 py-3">
                                 <p class="font-semibold">{{ $t->description }}</p>
@@ -58,7 +60,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="px-5 py-12 text-center text-muted">Belum ada transaksi.</td></tr>
+                        <tr><td colspan="6" class="px-5 py-12 text-center text-muted">Belum ada transaksi.</td></tr>
                     @endforelse
                 </tbody>
             </table>

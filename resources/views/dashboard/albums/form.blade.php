@@ -20,24 +20,8 @@
                     <input type="text" name="title" value="{{ old('title', $album->title) }}" required class="{{ $input }}">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-1.5">Slug</label>
-                    <input type="text" name="slug" value="{{ old('slug', $album->slug) }}" placeholder="Otomatis dari judul bila dikosongkan" class="{{ $input }}">
-                </div>
-                <div>
                     <label class="block text-sm font-semibold mb-1.5">Deskripsi</label>
                     <textarea name="description" rows="4" class="{{ $input }}">{{ old('description', $album->description) }}</textarea>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/10 p-5 space-y-4">
-                <h3 class="font-bold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-chart text-primary"></i> SEO (Opsional)</h3>
-                <div>
-                    <label class="block text-sm font-semibold mb-1.5">Meta Title</label>
-                    <input type="text" name="meta_title" value="{{ old('meta_title', $album->meta_title) }}" class="{{ $input }}">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1.5">Meta Description</label>
-                    <textarea name="meta_description" rows="2" maxlength="500" class="{{ $input }}">{{ old('meta_description', $album->meta_description) }}</textarea>
                 </div>
             </div>
         </div>

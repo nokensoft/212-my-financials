@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Hubungi Kami')
-@section('meta_description', 'Hubungi MY Financials — mitra keuangan UMKM di Papua. WhatsApp, email, dan formulir untuk konsultasi, pelatihan, dan kemitraan.')
+@section('meta_description', 'Hubungi MY Financials — mitra keuangan bagi pelaku usaha, organisasi, dan individu di Papua. WhatsApp, email, dan formulir untuk konsultasi, pelatihan, dan kemitraan.')
 
 @section('content')
     @include('partials.page-header', [

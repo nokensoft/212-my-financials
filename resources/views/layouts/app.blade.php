@@ -18,8 +18,8 @@
     </script>
 
     <title>@yield('page_title', 'Beranda') · {{ config('app.name') }}</title>
-    <meta name="description" content="@yield('meta_description', 'MY Financials — mitra keuangan terpercaya untuk UMKM di Papua: pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha yang praktis dan mudah dipahami.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'MY Financials, keuangan UMKM, pembukuan UMKM, konsultasi keuangan, pelatihan keuangan, literasi keuangan, perencanaan keuangan, akuntansi UMKM, Papua, Jayapura, Sentani')">
+    <meta name="description" content="@yield('meta_description', 'MY Financials — Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua. Literasi keuangan & set-up pembukuan yang praktis dan mudah dipahami.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'MY Financials, konsultasi keuangan, pembukuan, bookkeeping, pelatihan keuangan, literasi keuangan, perencanaan keuangan, akuntansi, pelaku usaha, organisasi, Papua, Jayapura, Sentani')">
     <meta name="robots" content="@yield('robots', 'index, follow')">
     <link rel="canonical" href="@yield('canonical', url()->current())">
 
@@ -31,14 +31,14 @@
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:locale" content="id_ID">
     <meta property="og:title" content="@yield('page_title', config('app.name'))">
-    <meta property="og:description" content="@yield('meta_description', 'Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan, konsultasi, dan set-up pembukuan usaha.')">
+    <meta property="og:description" content="@yield('meta_description', 'Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua.')">
     <meta property="og:url" content="@yield('canonical', url()->current())">
     <meta property="og:image" content="@yield('og_image', asset('images/myf/1.jpg'))">
 
     {{-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('page_title', config('app.name'))">
-    <meta name="twitter:description" content="@yield('meta_description', 'Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan, konsultasi, dan set-up pembukuan usaha.')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua.')">
     <meta name="twitter:image" content="@yield('og_image', asset('images/myf/1.jpg'))">
 
     {{-- Fonts & icons --}}

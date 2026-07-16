@@ -20,6 +20,7 @@
             <table class="w-full text-sm">
                 <thead class="bg-stone text-muted text-left">
                     <tr>
+                        <th class="px-5 py-3 font-semibold w-12">No</th>
                         <th class="px-5 py-3 font-semibold">Invoice</th>
                         <th class="px-5 py-3 font-semibold">Member</th>
                         <th class="px-5 py-3 font-semibold hidden md:table-cell">Paket</th>
@@ -31,6 +32,7 @@
                 <tbody class="divide-y divide-line">
                     @forelse ($orders as $o)
                         <tr class="hover:bg-stone/60">
+                            <td class="px-5 py-3 text-muted">{{ $orders->firstItem() + $loop->index }}</td>
                             <td class="px-5 py-3">
                                 <p class="font-mono font-semibold text-xs">{{ $o->invoice_no }}</p>
                                 <p class="text-xs text-muted">{{ $o->created_at->locale('id')->translatedFormat('d M Y') }}</p>
@@ -59,7 +61,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="px-5 py-12 text-center text-muted">Belum ada pemesanan.</td></tr>
+                        <tr><td colspan="7" class="px-5 py-12 text-center text-muted">Belum ada pemesanan.</td></tr>
                     @endforelse
                 </tbody>
             </table>

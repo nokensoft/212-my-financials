@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Siapa Kami')
-@section('meta_description', 'Mengenal MY Financials (PT Mey Hangrang Jaya) — jasa profesional konsultasi keuangan, pembukuan, pelatihan, dan pendampingan untuk UMKM di Papua.')
+@section('meta_description', 'Mengenal MY Financials (PT Mey Hangrang Jaya) — jasa profesional konsultasi keuangan, pembukuan, pelatihan, dan pendampingan bagi pelaku usaha, yayasan, organisasi, hingga individu di Papua.')
 
 @section('content')
     @include('partials.page-header', [

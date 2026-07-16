@@ -10,6 +10,7 @@ use App\Support\Slug;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AlbumController extends Controller
@@ -102,7 +103,6 @@ class AlbumController extends Controller
     {
         return $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:2000'],
             'status' => ['required', 'in:draft,published'],
             'published_at' => ['nullable', 'date'],
@@ -110,8 +110,6 @@ class AlbumController extends Controller
             'remove_cover' => ['nullable', 'boolean'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['integer', 'exists:categories,id'],
-            'meta_title' => ['nullable', 'string', 'max:255'],
-            'meta_description' => ['nullable', 'string', 'max:500'],
         ]);
     }
 
@@ -121,16 +119,12 @@ class AlbumController extends Controller
     protected function persist(Album $album, array $data, Request $request): void
     {
         $album->title = $data['title'];
-
-        if (! $album->exists || filled($data['slug'] ?? null) || ! $album->slug) {
-            $source = filled($data['slug'] ?? null) ? $data['slug'] : ($album->slug ?: $data['title']);
-            $album->slug = Slug::unique(Album::class, $source, $album->id);
-        }
+        $album->slug = Slug::unique(Album::class, $data['title'], $album->id);
 
         $album->description = $data['description'] ?? null;
         $album->status = $data['status'];
-        $album->meta_title = $data['meta_title'] ?? null;
-        $album->meta_description = $data['meta_description'] ?? null;
+        $album->meta_title = Str::limit($data['title'], 60, '');
+        $album->meta_description = $this->autoMetaDescription($data['description'] ?? null);
 
         $published = filled($data['published_at'] ?? null) ? Carbon::parse($data['published_at']) : null;
         if ($data['status'] === 'published') {
@@ -151,5 +145,15 @@ class AlbumController extends Controller
 
         $album->save();
         $album->categories()->sync($data['categories'] ?? []);
+    }
+
+    /**
+     * Build a meta description from the album description.
+     */
+    protected function autoMetaDescription(?string $description): ?string
+    {
+        $source = trim(preg_replace('/\s+/', ' ', strip_tags((string) $description)));
+
+        return $source !== '' ? Str::limit($source, 157) : null;
     }
 }

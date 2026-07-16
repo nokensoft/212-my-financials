@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Program & Layanan')
-@section('meta_description', 'Program & layanan MY Financials: edukasi & workshop pemberdayaan, konsultasi & sistem kontekstual, serta digitalisasi & set-up keuangan untuk UMKM Papua.')
+@section('meta_description', 'Program & layanan MY Financials: edukasi & workshop pemberdayaan, konsultasi & sistem kontekstual, serta digitalisasi & set-up keuangan bagi pelaku usaha, organisasi, dan individu di Papua.')
 
 @section('content')
     @include('partials.page-header', [

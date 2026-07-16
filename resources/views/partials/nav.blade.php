@@ -6,7 +6,10 @@
     <div class="max-w-[1200px] mx-auto flex items-center justify-between h-16 px-6 max-[480px]:px-4">
         <a href="{{ $home ?: '#beranda' }}" class="flex items-center gap-2.5 no-underline shrink-0" aria-label="MY Financials — Beranda">
             <img src="{{ asset('images/myf/logo-my-financials.png') }}" alt="MY Financials" class="h-20 w-auto py-2 translate-y-2.5 relative z-[2] max-[480px]:h-[62px] max-[480px]:py-1 max-[480px]:translate-y-2">
-            <span class="nav-title">MY Financials</span>
+            <span class="flex flex-col leading-none">
+                <span class="nav-title">MY Financials</span>
+                <span class="navmenu:block mt-1 max-w-[260px] text-[.62rem] font-semibold uppercase tracking-[.04em] text-muted leading-tight">Kelola Keuangan, Kelola Hidup.</span>
+            </span>
         </a>
         <ul class="nav-links hidden navmenu:flex items-center gap-1 list-none">
             <li><a href="{{ $home ?: '#beranda' }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>

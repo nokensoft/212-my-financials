@@ -1,6 +1,7 @@
 <!-- ── FOOTER ── -->
 <footer class="bg-ink text-white/50 text-center text-[.82rem] px-6 py-9 flex flex-col items-center gap-3.5">
     <img class="h-40 w-auto opacity-95" src="{{ asset('images/myf/logo-my-financials-white.png') }}" alt="MY Financials">
+    <p class="-mt-1 text-[.82rem] font-semibold text-white/70">Jasa Perencanaan Keuangan: Konsultasi, Pelatihan &amp; Pendampingan</p>
 
     <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[.8rem] font-semibold text-white/60">
         <a href="{{ route('blog.index') }}" class="hover:text-white transition">Blog</a>

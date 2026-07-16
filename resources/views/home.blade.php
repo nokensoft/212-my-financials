@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('page_title', 'Beranda')
-@section('meta_description', 'MY Financials — mitra keuangan terpercaya untuk UMKM di Papua. Pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha yang praktis dan mudah dipahami.')
+@section('meta_description', 'MY Financials — Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua. Literasi keuangan & set-up pembukuan yang praktis dan mudah dipahami.')
 
 @php
     $serviceLd = [
         '@context' => 'https://schema.org',
         '@type' => 'FinancialService',
         'name' => 'MY Financials',
-        'description' => 'Mitra keuangan terpercaya untuk UMKM di Papua — pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan usaha.',
+        'description' => 'Mitra keuangan terpercaya bagi pelaku usaha, organisasi, dan individu di Papua — pelatihan literasi keuangan, konsultasi & pendampingan, serta set-up pembukuan.',
         'image' => asset('images/myf/1.jpg'),
         'logo' => asset('images/myf/logo-my-financials.png'),
         'email' => 'msy.financials@outlook.com',
@@ -42,10 +42,11 @@
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="relative z-[2] max-w-[880px] mx-auto flex flex-col items-center px-6 pt-28 pb-20 max-[900px]:pt-[100px] max-[900px]:pb-16">
-        <h1 class="hero-title">
-            <em>Selamat Datang di</em><br>
-            MY Financials
+        <h1 class="hero-title text-9xl pt-6">
+            MY Financials <br>
+            <em class="text-3xl">Kelola Keuangan, Kelola Hidup.</em>
         </h1>
+        <p class="text-white pb-6">Kami membantu Anda membangun sistem keuangan yang sehat agar dapat mengambil keputusan dengan percaya diri dan bertumbuh secara berkelanjutan.</p>
         <div class="flex gap-3 flex-wrap justify-center max-[480px]:flex-col max-[480px]:w-full">
             <a href="{{ route('pages.about.who') }}" class="btn-ghost justify-center max-[480px]:w-full"><i class="fa-solid fa-arrow-right"></i> Tentang Kami</a>
             <a href="#paket" class="btn-primary justify-center max-[480px]:w-full"><i class="fa-solid fa-circle-down"></i> Paket Layanan</a>

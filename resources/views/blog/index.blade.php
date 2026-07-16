@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Blog & Artikel')
-@section('meta_description', 'Kumpulan artikel, tips, dan kabar terbaru MY Financials seputar literasi keuangan, pembukuan, dan pemberdayaan UMKM di Papua.')
+@section('meta_description', 'Kumpulan artikel, tips, dan kabar terbaru MY Financials seputar literasi keuangan, pembukuan, dan pemberdayaan pelaku usaha di Papua.')
 
 @section('content')
     @include('partials.page-header', [
