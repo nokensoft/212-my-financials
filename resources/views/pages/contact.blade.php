@@ -33,7 +33,7 @@
                     </div>
                     <div class="kontak-item">
                         <div class="kontak-icon"><i class="fa-solid fa-envelope"></i></div>
-                        <div><strong>Email</strong><a href="mailto:msy.financials@outlook.com">msy.financials@outlook.com</a></div>
+                        <div><strong>Email</strong><a href="mailto:myfinancials.id@gmail.com">myfinancials.id@gmail.com</a></div>
                     </div>
                     <div class="kontak-item">
                         <div class="kontak-icon"><i class="fa-brands fa-instagram"></i></div>

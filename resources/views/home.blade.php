@@ -42,7 +42,7 @@
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="relative z-[2] max-w-[880px] mx-auto flex flex-col items-center px-6 pt-28 pb-20 max-[900px]:pt-[100px] max-[900px]:pb-16">
-        <h1 class="hero-title text-9xl pt-6">
+        <h1 class="hero-title text-7xl pt-6">
             MY Financials <br>
             <em class="text-3xl">Kelola Keuangan, Kelola Hidup.</em>
         </h1>

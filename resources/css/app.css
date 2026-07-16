@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Mencegah FOUC — di-override saat CSS Vite selesai termuat.
+   Gunakan transisi opacity agar reveal terasa halus bukan tiba-tiba. */
+html.fouc-guard { visibility: visible; opacity: 0; transition: opacity 0.15s ease; }
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -220,6 +224,16 @@
     .team-role { @apply block text-rust-light text-[.8rem] font-bold uppercase tracking-[.06em] mt-1.5 mb-3.5; }
     .team-desc { @apply text-white/70 text-[.9rem] leading-[1.7]; }
 
+    /* ── LOADING SCREEN ── */
+    .site-loader { @apply fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-ink; transition: opacity .5s ease, visibility .5s ease; }
+    .site-loader.is-hidden { @apply opacity-0 invisible pointer-events-none; }
+    .site-loader-overlay { @apply absolute inset-0 z-0; background: linear-gradient(135deg, rgba(140, 50, 16, .78) 0%, rgba(92, 30, 8, .72) 42%, rgba(26, 18, 16, .86) 100%); }
+    .site-loader-overlay::after { content: ''; @apply absolute inset-0; background-image: radial-gradient(circle at 72% 25%, rgba(232, 101, 31, .28) 0%, transparent 55%), radial-gradient(circle at 18% 85%, rgba(184, 74, 26, .18) 0%, transparent 50%); }
+    .site-loader-content { @apply relative z-[1] flex flex-col items-center px-6 text-center; }
+    .site-loader-logo { @apply w-[128px] sm:w-[160px] h-auto; animation: loaderPulse 1.8s ease-in-out infinite; }
+    .site-loader-tagline { @apply font-serif italic text-rust-light text-[1.15rem] sm:text-[1.35rem] font-medium mt-5; }
+    .site-loader-spinner { @apply mt-7 w-8 h-8 rounded-full border-[3px] border-white/25 border-t-white; animation: loaderSpin .8s linear infinite; }
+
     /* ── FLOATING ACTIONS (WhatsApp + back to top) ── */
     .fab-stack { @apply fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-[90] flex flex-col items-end gap-3; }
     .wa-float { @apply flex items-center gap-3 bg-white rounded-full p-1.5 xs:pr-4 no-underline shadow-[0_10px_30px_rgba(26,18,16,0.22)] transition; }
@@ -245,6 +259,15 @@ html {
 @keyframes heroZoom {
     0% { transform: scale(1); }
     100% { transform: scale(1.18); }
+}
+
+@keyframes loaderPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.06); opacity: .85; }
+}
+
+@keyframes loaderSpin {
+    to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

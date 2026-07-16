@@ -127,6 +127,53 @@ document.addEventListener('alpine:init', () => {
 
 Alpine.start();
 
+/* ── Anti-FOUC final gate ──────────────────────────────────────
+   Singkap halaman (<html> opacity: 0 → 1) hanya setelah Alpine
+   selesai memproses semua direktif (x-cloak, x-show, dll.).
+   Fallback timeout mencegah layar kosong jika Alpine gagal.
+   ────────────────────────────────────────────────────────────── */
+(function () {
+    var _revealed = false;
+    function _revealPage() {
+        if (_revealed) return;
+        _revealed = true;
+        document.documentElement.style.opacity = '1';
+    }
+    document.addEventListener('alpine:initialized', _revealPage);
+    setTimeout(_revealPage, 2000); // fallback: singkap setelah 2 detik jika Alpine lambat/gagal
+}());
+
+/* ── Loading screen ──────────────────────────────────────────
+   Sembunyikan loader (logo + tagline) setelah seluruh aset
+   halaman selesai dimuat, dengan durasi tampil minimum agar
+   animasi logo sempat terlihat. Fallback timeout mencegah loader
+   tersangkut jika event 'load' tidak pernah terpicu.
+   ────────────────────────────────────────────────────────────── */
+(function () {
+    var loader = document.getElementById('siteLoader');
+    if (!loader) return;
+    var MIN_VISIBLE = 700; // ms
+    var start = Date.now();
+    var _dismissed = false;
+    function _hideLoader() {
+        if (_dismissed) return;
+        _dismissed = true;
+        var wait = Math.max(0, MIN_VISIBLE - (Date.now() - start));
+        setTimeout(function () {
+            loader.classList.add('is-hidden');
+            loader.addEventListener('transitionend', function () {
+                loader.remove();
+            }, { once: true });
+        }, wait);
+    }
+    if (document.readyState === 'complete') {
+        _hideLoader();
+    } else {
+        window.addEventListener('load', _hideLoader);
+    }
+    setTimeout(_hideLoader, 5000); // fallback: paksa sembunyikan setelah 5 detik
+}());
+
 /* ──────────────────────────────────────────────────────────────
    MY Financials — interaksi halaman publik (vanilla JS)
    Semua di-guard dengan pengecekan elemen agar aman di dashboard/login.

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth fouc-guard">
 
 <head>
     <meta charset="UTF-8">
@@ -33,15 +33,19 @@
     <meta property="og:title" content="@yield('page_title', config('app.name'))">
     <meta property="og:description" content="@yield('meta_description', 'Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua.')">
     <meta property="og:url" content="@yield('canonical', url()->current())">
-    <meta property="og:image" content="@yield('og_image', asset('images/myf/1.jpg'))">
+    <meta property="og:image" content="@yield('og_image', asset('images/myfinancials-meta.jpg'))">
 
     {{-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('page_title', config('app.name'))">
     <meta name="twitter:description" content="@yield('meta_description', 'Jasa Perencanaan Keuangan: Konsultasi, Pelatihan & Pendampingan bagi pelaku usaha, organisasi, dan individu di Papua.')">
-    <meta name="twitter:image" content="@yield('og_image', asset('images/myf/1.jpg'))">
+    <meta name="twitter:image" content="@yield('og_image', asset('images/myf/myfinancials-meta.jpg'))">
 
-    {{-- Fonts & icons --}}
+    {{-- Mencegah FOUC: sembunyikan seluruh halaman hingga CSS & JS siap --}}
+    {{-- Catatan: menarget <html> (bukan <body>) agar berlaku sebelum browser mulai render apapun --}}
+    <style>html.fouc-guard{visibility:hidden;opacity:0}</style>
+
+    {{-- Fonts & icons (dimuat setelah FOUC-guard agar tidak membuat race condition) --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
@@ -52,6 +56,8 @@
 </head>
 
 <body class="font-sans bg-cream text-ink antialiased overflow-x-hidden">
+
+    @include('partials.loader')
 
     @include('partials.dev-notice')
     @include('partials.topbar')
